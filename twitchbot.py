@@ -1,3 +1,5 @@
+import math
+
 from twitchio.ext import commands
 from config import token, api_key
 from riotwatcher import LolWatcher, ApiError
@@ -125,6 +127,52 @@ class Bot(commands.Bot):
                 out = f"Todays wins/losses {wins}/{losses}, winrate: {winrate / 100}%"
             print(out)
             await ctx.send(out)
+        except ApiError as err:
+            if err.response.status_code == 429:
+                await ctx.send('Connection error')
+            elif err.response.status_code == 404:
+                await ctx.send('We couldnt find this summoner')
+            else:
+                raise
+
+    @commands.command()
+    async def lastgame(self, ctx : commands.Context):
+        watcher = LolWatcher(api_key)
+        my_region = 'kr'
+        match_region = "asia"
+        summonername = 'Leminem'
+
+        try:
+            me = watcher.summoner.by_name(my_region, summonername)
+            now = datetime.datetime.now().timestamp()*1000
+            print(now)
+            matches = watcher.match.matchlist_by_puuid(match_region, me['puuid'])
+            lastgame = watcher.match.by_id(match_region, matches[0])
+            print(lastgame["info"])
+            gamecreation = lastgame["info"]["gameEndTimestamp"]
+            print(gamecreation)
+
+            # Get win or loss
+            for participant in lastgame["info"]["participants"]:
+                if participant["puuid"] == me["puuid"]:
+                    print(participant["win"])
+                    if participant["win"] == True:
+                        win = "won"
+                    else:
+                        win = "lost"
+                    break
+
+
+            mins = int((now-gamecreation)/60000)
+            if mins > 60:
+                hours = math.floor(mins/60)
+                mins = mins/60-hours
+                mins = int(mins*60)
+                out = f"{hours} hours and {mins} minutes"
+            else:
+                out = f"{mins} minutes"
+
+            await ctx.send(f"Last game was played {out} ago and was {win}")
         except ApiError as err:
             if err.response.status_code == 429:
                 await ctx.send('Connection error')
