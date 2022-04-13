@@ -1,6 +1,7 @@
 from twitchio.ext import commands
 from config import token, api_key
 from riotwatcher import LolWatcher, ApiError
+import datetime, time
 
 class Bot(commands.Bot):
 
@@ -15,6 +16,8 @@ class Bot(commands.Bot):
         # We are logged in and ready to chat and use commands...
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
+        user = await self.fetch_users(["lol_nemesis"])
+        print(user)
 
     async def event_message(self, message):
         # Messages with echo set to True are messages sent by the bot...
@@ -84,6 +87,51 @@ class Bot(commands.Bot):
             else:
                 raise
 
+    @commands.command(aliases=["winrate", "losses", "daily", "stats"])
+    async def wins(self, ctx: commands.Context):
+        watcher = LolWatcher(api_key)
+        my_region = 'kr'
+        match_region = "asia"
+        summonername = 'Leminem'
+
+        try:
+            me = watcher.summoner.by_name(my_region, summonername)
+            date = datetime.datetime.now().strftime("%d/%m/%Y")
+            todayzeroam = time.mktime(datetime.datetime.strptime(f"{date}/00/00", "%d/%m/%Y/%H/%M").timetuple())
+            matches = watcher.match.matchlist_by_puuid(match_region, me['puuid'], type="ranked",
+                                                       start_time=int(todayzeroam))  #
+            wins = 0
+            losses = 0
+            for matchid in matches:
+                match = watcher.match.by_id(match_region, matchid)
+                for participant in match["info"]["participants"]:
+                    if participant["puuid"] == me["puuid"]:
+                        print(participant["win"])
+                        if participant["win"] == True:
+                            wins += 1
+                        else:
+                            losses += 1
+                        break
+
+            print(f"wins/losses {wins}/{losses}")
+            if losses == 0 and wins > 0:
+                winrate = 1
+                out = f"Todays wins/losses {wins}/{losses}, winrate: {winrate / 100}%"
+            elif losses == 0 and wins == 0:
+                winrate = 0
+                out = f"No ranked games played today :/"
+            else:
+                winrate = wins / losses
+                out = f"Todays wins/losses {wins}/{losses}, winrate: {winrate / 100}%"
+            print(out)
+            await ctx.send(out)
+        except ApiError as err:
+            if err.response.status_code == 429:
+                await ctx.send('Connection error')
+            elif err.response.status_code == 404:
+                await ctx.send('We couldnt find this summoner')
+            else:
+                raise
 
 bot = Bot()
 bot.run()
