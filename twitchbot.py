@@ -42,13 +42,16 @@ class Bot(commands.Bot):
         await ctx.send(f'ICANT')
 
     @commands.command()
-    async def rank(self, ctx: commands.Context):
-        # Here we have a command hello, we can invoke our command with our prefix and command name
-        # e.g ?hello
-        # We can also give our commands aliases (different names) to invoke with.
+    async def language(self, ctx: commands.Context):
+        await ctx.send(f'Only english Habibi')
 
-        # Send a hello back!
-        # Sending a reply back to the channel is easy... Below is an example.
+    @commands.command()
+    async def help(self, ctx: commands.Context):
+        await ctx.send(f'You tell me what I can do, I have no features yet Sadge')
+
+    @commands.command()
+    async def rank(self, ctx: commands.Context):
+
         watcher = LolWatcher(api_key)
         if ctx.channel.name=="deceiver_euw":
             my_region = "euw1"
