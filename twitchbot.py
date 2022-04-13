@@ -50,8 +50,12 @@ class Bot(commands.Bot):
         # Send a hello back!
         # Sending a reply back to the channel is easy... Below is an example.
         watcher = LolWatcher(api_key)
-        my_region = "kr"
-        summonername = "Leminem"
+        if ctx.channel.name=="Deceiver_euw":
+            my_region = "euw1"
+            summonername = "Deceiv3dDeceiv3r"
+        else:
+            my_region = "kr"
+            summonername = "Leminem"
 
         try:
             me = watcher.summoner.by_name(my_region, summonername)
