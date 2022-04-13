@@ -50,7 +50,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def help(self, ctx: commands.Context):
-        await ctx.send(f'You tell me what I can do, I have no features yet Sadge')
+        await ctx.send(f'You tell me what I can do, I have barely any features yet Sadge')
 
     @commands.command()
     async def rank(self, ctx: commands.Context):
