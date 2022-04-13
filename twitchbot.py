@@ -8,7 +8,7 @@ class Bot(commands.Bot):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
         # prefix can be a callable, which returns a list of strings or a string...
         # initial_channels can also be a callable which returns a list of strings...
-        super().__init__(token=token, prefix='lem ', initial_channels=['lol_nemesis', 'qbaumi2004', 'Deceiver_euw'], nick="Lemon Bot", case_insensitive=True)
+        super().__init__(token=token, prefix='lem ', initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw'], nick="Lemon Bot", case_insensitive=True)
 
     async def event_ready(self):
         # Notify us when everything is ready!
@@ -50,7 +50,7 @@ class Bot(commands.Bot):
         # Send a hello back!
         # Sending a reply back to the channel is easy... Below is an example.
         watcher = LolWatcher(api_key)
-        if ctx.channel.name=="Deceiver_euw":
+        if ctx.channel.name=="deceiver_euw":
             my_region = "euw1"
             summonername = "Deceiv3dDeceiv3r"
         else:
