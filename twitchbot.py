@@ -104,6 +104,7 @@ class Bot(commands.Bot):
             losses = 0
             for matchid in matches:
                 match = watcher.match.by_id(match_region, matchid)
+                print(match)
                 for participant in match["info"]["participants"]:
                     if participant["puuid"] == me["puuid"]:
                         print(participant["win"])
@@ -116,13 +117,13 @@ class Bot(commands.Bot):
             print(f"wins/losses {wins}/{losses}")
             if losses == 0 and wins > 0:
                 winrate = 1
-                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {winrate / 100}%"
+                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int(winrate * 100)}%"
             elif losses == 0 and wins == 0:
                 winrate = 0
                 out = f"@{ctx.author.name} No ranked games played today :/"
             else:
-                winrate = wins / losses
-                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {winrate / 100}%"
+                winrate =  wins / (wins+losses)
+                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int(winrate * 100)}%"
             print(out)
             await ctx.send(out)
         except ApiError as err:
