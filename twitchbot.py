@@ -22,7 +22,7 @@ class Bot(commands.Bot):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
         user = await self.fetch_users(["lol_nemesis"])
-        print(user)
+        #print(user)
 
     async def event_message(self, message):
         # Messages with echo set to True are messages sent by the bot...
@@ -108,7 +108,6 @@ class Bot(commands.Bot):
             losses = 0
             for matchid in matches:
                 match = watcher.match.by_id(match_region, matchid)
-                print(match)
                 for participant in match["info"]["participants"]:
                     if participant["puuid"] == me["puuid"]:
                         print(participant["win"])
@@ -118,7 +117,6 @@ class Bot(commands.Bot):
                             losses += 1
                         break
 
-            print(f"wins/losses {wins}/{losses}")
             if losses == 0 and wins > 0:
                 winrate = 1
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int(winrate * 100)}%"
@@ -128,7 +126,6 @@ class Bot(commands.Bot):
             else:
                 winrate =  wins / (wins+losses)
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int(winrate * 100)}%"
-            print(out)
             await ctx.send(out)
         except ApiError as err:
             if err.response.status_code == 429:
