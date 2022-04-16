@@ -14,7 +14,7 @@ class Bot(commands.Bot):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
         # prefix can be a callable, which returns a list of strings or a string...
         # initial_channels can also be a callable which returns a list of strings...
-        super().__init__(token=token, prefix=['lem ', 'LEM' , 'LeM' , 'LEm' , 'Lem' , 'lEM' , 'leM' ], initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw'], nick="Lemon Bot", case_insensitive=True)
+        super().__init__(token=token, prefix=['lem ', 'LEM' , 'LeM' , 'LEm' , 'Lem' , 'lEM' , 'leM' ], initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect'], nick="Lemon Bot", case_insensitive=True)
         self.counter = 0
     async def event_ready(self):
         # Notify us when everything is ready!
@@ -33,9 +33,9 @@ class Bot(commands.Bot):
         # Print the contents of our message to console...
         print(message.content)
         print(message.author.name)
-        if message.author.name == "azarusio" and self.counter < 3:
-            await message.channel.send("I use Azarusio everyday and it changed my life!")
-            self.counter+=1
+        #if message.author.name == "azarusio" and self.counter < 3:
+        #    await message.channel.send("I use Azarusio everyday and it changed my life!")
+        #    self.counter+=1
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
@@ -201,6 +201,10 @@ def getChannelSummoner(name):
         my_region = "euw1"
         match_region = "europe"
         summonername = "Deceiv3dDeceiv3r"
+    elif name == "thedisconnect":
+        my_region = "euw1"
+        match_region = "europe"
+        summonername = "TheDisconnect"
     else:
         my_region = "kr"
         match_region = "asia"
