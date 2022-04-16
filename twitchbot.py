@@ -58,7 +58,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def help(self, ctx: commands.Context):
-        await ctx.send(f'@{ctx.author.name} This is a list of commands, you need to type lem before them e.g. lem rank. lem lastgame, lem winrate')
+        await ctx.send(f'@{ctx.author.name} This is a list of commands, you need to type lem before them e.g. lem rank, lem lastgame, lem winrate')
 
     @commands.command()
     async def rank(self, ctx: commands.Context):
