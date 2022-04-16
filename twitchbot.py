@@ -33,7 +33,7 @@ class Bot(commands.Bot):
         #print(message.content)
         #print(message.author.name)
         if message.content.startswith("lem "):
-            print(f"{message.author}: {message.content}")
+            print(f"{message.author.name}: {message.content}")
 
         #if message.author.name == "azarusio" and self.counter < 3:
         #    await message.channel.send("I use Azarusio everyday and it changed my life!")
