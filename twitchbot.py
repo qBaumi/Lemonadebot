@@ -155,7 +155,6 @@ class Bot(commands.Bot):
             # Get win or loss
             for participant in lastgame["info"]["participants"]:
                 if participant["puuid"] == me["puuid"]:
-                    print(participant["win"])
                     if participant["win"] == True:
                         win = "won"
                     else:
