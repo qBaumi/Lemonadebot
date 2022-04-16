@@ -30,8 +30,6 @@ class Bot(commands.Bot):
         if message.echo:
             return
 
-        #print(message.content)
-        #print(message.author.name)
         if message.content.startswith("lem "):
             print(f"{message.author.name}: {message.content}")
 
@@ -60,7 +58,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def help(self, ctx: commands.Context):
-        await ctx.send(f'@{ctx.author.name} You tell me what I can do, I have barely any features yet Sadge')
+        await ctx.send(f'@{ctx.author.name} This is a list of commands, you need to type lem before them e.g. lem rank. lem lastgame, lem winrate')
 
     @commands.command()
     async def rank(self, ctx: commands.Context):
@@ -110,7 +108,6 @@ class Bot(commands.Bot):
                 match = watcher.match.by_id(match_region, matchid)
                 for participant in match["info"]["participants"]:
                     if participant["puuid"] == me["puuid"]:
-                        print(participant["win"])
                         if participant["win"] == True:
                             wins += 1
                         else:
