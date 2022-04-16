@@ -30,12 +30,16 @@ class Bot(commands.Bot):
         if message.echo:
             return
 
-        # Print the contents of our message to console...
-        print(message.content)
-        print(message.author.name)
+        #print(message.content)
+        #print(message.author.name)
+        if message.content.startswith("lem "):
+            print(f"{message.author}: {message.content}")
+
         #if message.author.name == "azarusio" and self.counter < 3:
         #    await message.channel.send("I use Azarusio everyday and it changed my life!")
         #    self.counter+=1
+
+
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
