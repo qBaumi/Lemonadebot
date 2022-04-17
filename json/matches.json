@@ -1,0 +1,72 @@
+{
+    "17-04-2022": {
+        "startlp": 701,
+        "matches": [
+            {
+                "matchid": "KR_5872955647",
+                "new_lp": 719,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5872918050",
+                "new_lp": 701,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5872874119",
+                "new_lp": 683,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5872788186",
+                "new_lp": 701,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5872760200",
+                "new_lp": 719,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5872671924",
+                "new_lp": 737,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5872325997",
+                "new_lp": 755,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5872352181",
+                "new_lp": 773,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5873140533",
+                "new_lp": 791,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5873056710",
+                "new_lp": 809,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5873108624",
+                "new_lp": 790,
+                "lpgain": -19
+            },
+            {
+                "matchid": "KR_5873192120",
+                "new_lp": 808,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5873243379",
+                "new_lp": 789,
+                "lpgain": -19
+            }
+        ]
+    }
+}
