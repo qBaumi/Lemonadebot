@@ -101,7 +101,7 @@ class Bot(commands.Bot):
                 out = f"@{ctx.author.name} No ranked games played today :/"
             else:
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
-            if losses == 0 and wins == 0 and ctx.channel.name == "lol_nemesis":
+            if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
                 out += f", started with {startlp} LP, gained {lpgain}LP in total today"
 
             await ctx.send(out)
