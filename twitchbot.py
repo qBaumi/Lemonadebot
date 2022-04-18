@@ -1,11 +1,12 @@
 import json
+import pylast
 import math
 from twitchio.ext import commands
-from config import token, api_key
+from config import token, api_key, lastfm_api_key, lastfm_api_secret
 from riotwatcher import LolWatcher, ApiError
 import datetime, time
-watcher = LolWatcher(api_key)
 from twitchio.ext import routines
+watcher = LolWatcher(api_key)
 
 
 
@@ -44,6 +45,25 @@ class Bot(commands.Bot):
     @commands.command()
     async def language(self, ctx: commands.Context):
         await ctx.send(f'Only english Habibi')
+
+    @commands.command()
+    async def song(self, ctx: commands.Context):
+        network = pylast.LastFMNetwork(
+            api_key=lastfm_api_key,
+            api_secret=lastfm_api_secret,
+            # username=username,
+            # password_hash=password_hash,
+        )
+        user = network.get_user("qBaumi")
+        print(user)
+        current_track = user.get_now_playing()
+        print(type(current_track))
+        print(current_track)
+        if current_track is None:
+            out = "No song currently playing"
+        else:
+            out = f"{current_track.title} - {current_track.artist}"
+        await ctx.send(out)
 
     @commands.command()
     async def help(self, ctx: commands.Context):
