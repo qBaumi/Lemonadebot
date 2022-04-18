@@ -38,6 +38,10 @@ class Bot(commands.Bot):
         await self.handle_commands(message)
 
     @commands.command()
+    async def inem(self, ctx: commands.Context):
+        await ctx.send(f'No.')
+
+    @commands.command()
     async def language(self, ctx: commands.Context):
         await ctx.send(f'Only english Habibi')
 
@@ -82,7 +86,7 @@ class Bot(commands.Bot):
         try:
             me = watcher.summoner.by_name(my_region, summonername)
             matches = getMatchesOfToday(match_region, me)
-            startlp, lpgain = getDailyLPGain()
+
             wins = 0
             losses = 0
             for matchid in matches:
@@ -102,7 +106,15 @@ class Bot(commands.Bot):
             else:
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
             if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
-                out += f", started with {startlp} LP, gained {lpgain}LP in total today"
+                try:
+                    startlp, lpgain = getDailyLPGain()
+                    if lpgain < 0:
+                        s = "lost"
+                    else:
+                        s = "gained"
+                    out += f", started with {startlp} LP, {s} {lpgain}LP in total today"
+                except:
+                    pass
 
             await ctx.send(out)
         except ApiError as err:
@@ -167,7 +179,7 @@ class Bot(commands.Bot):
             savedMatches[date]["matches"] = []
 
         for i, matchid in enumerate(matches):
-
+            #print(f"{i} {matchid}")
             # check if matchid in list
             isInList = False
             for match in savedMatches[date]["matches"]:
@@ -177,8 +189,11 @@ class Bot(commands.Bot):
             if not isInList:
                 if i - 1 == -1:
                     lpgain = lp - savedMatches[date]["startlp"]
+                    #print("first game")
+                    #print(f'{lp} - {savedMatches[date]["startlp"]}')
                 else:
                     lpgain = lp - savedMatches[date]["matches"][i - 1]["new_lp"]
+                    #print(f'{lp} - {savedMatches[date]["matches"][i - 1]["new_lp"]}')
                 savedMatches[date]["matches"].append({"matchid": matchid, "new_lp": lp, "lpgain": lpgain})
 
         saveMatches(savedMatches)

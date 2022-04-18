@@ -78,14 +78,9 @@
         "startlp": 771,
         "matches": [
             {
-                "matchid": "DODGE",
-                "new_lp": 768,
-                "lpgain": -3
-            },
-            {
                 "matchid": "KR_5873731814",
                 "new_lp": 788,
-                "lpgain": 17
+                "lpgain": 14
             },
             {
                 "matchid": "KR_5873734906",
@@ -96,6 +91,26 @@
                 "matchid": "KR_5873699899",
                 "new_lp": 788,
                 "lpgain": -18
+            },
+            {
+                "matchid": "KR_5873755401",
+                "new_lp": 766,
+                "lpgain": -19
+            },
+            {
+                "matchid": "KR_5873922124",
+                "new_lp": 784,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5873928315",
+                "new_lp": 802,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5874237035",
+                "new_lp": 817,
+                "lpgain": 15
             }
         ]
     }
