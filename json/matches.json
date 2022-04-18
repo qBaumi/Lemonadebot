@@ -66,6 +66,36 @@
                 "matchid": "KR_5873243379",
                 "new_lp": 789,
                 "lpgain": -19
+            },
+            {
+                "matchid": "lastkaylegame",
+                "new_lp": 771,
+                "lpgain": -18
+            }
+        ]
+    },
+    "18-04-2022": {
+        "startlp": 771,
+        "matches": [
+            {
+                "matchid": "DODGE",
+                "new_lp": 768,
+                "lpgain": -3
+            },
+            {
+                "matchid": "KR_5873731814",
+                "new_lp": 788,
+                "lpgain": 17
+            },
+            {
+                "matchid": "KR_5873734906",
+                "new_lp": 806,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5873699899",
+                "new_lp": 788,
+                "lpgain": -18
             }
         ]
     }
