@@ -178,7 +178,7 @@ class Bot(commands.Bot):
         except ApiError as err:
             await err_msg(err, ctx)
 
-    @routines.routine(minutes=1)
+    @routines.routine(minutes=5)
     async def update_matches_loop(self):
 
         # Get summoner, ranked stats and match history
