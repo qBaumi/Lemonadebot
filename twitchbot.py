@@ -126,15 +126,14 @@ class Bot(commands.Bot):
             else:
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
             if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
-                try:
-                    startlp, lpgain = getDailyLPGain()
-                    if lpgain < 0:
-                        s = "lost"
-                    else:
-                        s = "gained"
-                    out += f", started with {startlp} LP, {s} {lpgain}LP in total today"
-                except:
-                    pass
+                
+                startlp, lpgain = getDailyLPGain()
+                if lpgain < 0:
+                    s = "lost"
+                else:
+                    s = "gained"
+                out += f", started with {startlp} LP, {s} {lpgain}LP in total today"
+
 
             await ctx.send(out)
         except ApiError as err:
