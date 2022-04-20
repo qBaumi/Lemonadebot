@@ -118,28 +118,30 @@ class Bot(commands.Bot):
                         else:
                             losses += 1
                         break
-
-            if losses == 0 and wins > 0:
-                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: 100%"
-            elif losses == 0 and wins == 0:
-                out = f"@{ctx.author.name} No ranked games played today :/"
-            else:
-                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
-            if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
-
-                startlp, lpgain = getDailyLPGain()
-                print(startlp)
-                print(lpgain)
-                if lpgain < 0:
-                    s = "lost"
-                else:
-                    s = "gained"
-                out += f", started with {startlp} LP, {s} {lpgain}LP in total today"
-
-
-            await ctx.send(out)
         except ApiError as err:
             await err_msg(err, ctx)
+            return
+        if losses == 0 and wins > 0:
+            out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: 100%"
+        elif losses == 0 and wins == 0:
+            out = f"@{ctx.author.name} No ranked games played today :/"
+        else:
+            out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
+
+        if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
+
+            startlp, lpgain = getDailyLPGain()
+            print(startlp)
+            print(lpgain)
+            if lpgain < 0:
+                s = "lost"
+            else:
+                s = "gained"
+            out += f", started with {startlp} LP, {s} {lpgain}LP in total today"
+
+
+        await ctx.send(out)
+
 
     @commands.command()
     async def lastgame(self, ctx : commands.Context):
