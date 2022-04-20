@@ -241,9 +241,10 @@ def getLP(ranked_stats):
 def getDailyLPGain():
     date = getDate()
     matches = getMatches()
-    lp = 0
-    for match in matches[date]["matches"]:
-        lp += match["lpgain"]
+    summoner = watcher.summoner.by_name("kr", "Leminem")
+    ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
+    current_lp = getLP(ranked_stats)
+    lp = current_lp-matches[date]["startlp"]
     return matches[date]["startlp"], lp
 def getGameType(match):
     queueId = match["info"]["queueId"]
