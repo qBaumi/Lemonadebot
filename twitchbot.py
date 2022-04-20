@@ -128,8 +128,7 @@ class Bot(commands.Bot):
         else:
             out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
 
-        if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
-
+        if losses > 0 and ctx.channel.name == "lol_nemesis" or wins > 0 and ctx.channel.name == "lol_nemesis":
             startlp, lpgain = getDailyLPGain()
             print(startlp)
             print(lpgain)
