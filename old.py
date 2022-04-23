@@ -6,8 +6,11 @@ from config import token, api_key, lastfm_api_key, lastfm_api_secret
 from riotwatcher import LolWatcher, ApiError
 import datetime, time
 from twitchio.ext import routines
-
 watcher = LolWatcher(api_key)
+
+
+
+
 
 
 class Bot(commands.Bot):
@@ -16,10 +19,7 @@ class Bot(commands.Bot):
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
         # prefix can be a callable, which returns a list of strings or a string...
         # initial_channels can also be a callable which returns a list of strings...
-        super().__init__(token=token, prefix=['lem ', 'LEM', 'LeM', 'LEm', 'Lem', 'lEM', 'leM'],
-                         initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect'],
-                         nick="Lemon Bot", case_insensitive=True)
-
+        super().__init__(token=token, prefix=['lem ', 'LEM' , 'LeM' , 'LEm' , 'Lem' , 'lEM' , 'leM' ], initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect'], nick="Lemon Bot", case_insensitive=True)
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
@@ -67,8 +67,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def help(self, ctx: commands.Context):
-        await ctx.send(
-            f'@{ctx.author.name} This is a list of commands, you need to type lem before them e.g. lem rank, lem lastgame, lem winrate')
+        await ctx.send(f'@{ctx.author.name} This is a list of commands, you need to type lem before them e.g. lem rank, lem lastgame, lem winrate')
 
     @commands.command(aliases=["lp"])
     async def rank(self, ctx: commands.Context):
@@ -88,6 +87,7 @@ class Bot(commands.Bot):
                     rank = rank.capitalize()
                     out = f"@{ctx.author.name} {rank} {my_ranked_stats[i]['leaguePoints']}lp {my_ranked_stats[i]['wins']} wins {my_ranked_stats[i]['losses']} losses"
 
+
                 i = i + 1
             await ctx.send(out)
         except ApiError as err:
@@ -101,6 +101,7 @@ class Bot(commands.Bot):
     @commands.command(aliases=["winrate", "losses", "daily", "wins"])
     async def stats(self, ctx: commands.Context):
         my_region, match_region, summonername = getChannelSummoner(ctx.channel.name)
+
 
         try:
 
@@ -134,12 +135,13 @@ class Bot(commands.Bot):
                                 losses += 1
                             break
 
+
             if losses == 0 and wins > 0:
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: 100%"
             elif losses == 0 and wins == 0:
                 out = f"@{ctx.author.name} No ranked games played today :/"
             else:
-                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins + losses)) * 100)}%"
+                out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins+losses)) * 100)}%"
 
             # Get LP Gain if channel is nemesis
             if losses != 0 and wins != 0 and ctx.channel.name == "lol_nemesis":
@@ -158,13 +160,15 @@ class Bot(commands.Bot):
             await err_msg(err, ctx)
             return
 
+
+
     @commands.command()
-    async def lastgame(self, ctx: commands.Context):
+    async def lastgame(self, ctx : commands.Context):
         my_region, match_region, summonername = getChannelSummoner(ctx.channel.name)
 
         try:
             summoner = watcher.summoner.by_name(my_region, summonername)
-            current_timestamp = datetime.datetime.now().timestamp() * 1000
+            current_timestamp = datetime.datetime.now().timestamp()*1000
             matches = watcher.match.matchlist_by_puuid(match_region, summoner['puuid'])
             lastgame = watcher.match.by_id(match_region, matches[0])
             gameEndTimeStamp = lastgame["info"]["gameEndTimestamp"]
@@ -182,12 +186,12 @@ class Bot(commands.Bot):
                     break
 
             # timestamp into minutes
-            mins = int((current_timestamp - gameEndTimeStamp) / 60000)
+            mins = int((current_timestamp-gameEndTimeStamp)/60000)
             # transform mins into hours + mins
             if mins > 60:
-                hours = math.floor(mins / 60)
-                mins = mins / 60 - hours
-                mins = int(mins * 60)
+                hours = math.floor(mins/60)
+                mins = mins/60-hours
+                mins = int(mins*60)
                 out = f"{hours} hours and {mins} minutes"
             else:
                 out = f"{mins} minutes"
@@ -208,7 +212,7 @@ class Bot(commands.Bot):
         savedMatches = getMatches()
         lp = getLP(ranked_stats)
 
-        matches.reverse()  # reverse matches so that 0 is first match and x is last match
+        matches.reverse() # reverse matches so that 0 is first match and x is last match
         try:
             savedMatches[date]
         except:
@@ -217,7 +221,7 @@ class Bot(commands.Bot):
             savedMatches[date]["matches"] = []
 
         for i, matchid in enumerate(matches):
-            # print(f"{i} {matchid}")
+            #print(f"{i} {matchid}")
             # check if matchid in list
             isInList = False
             for match in savedMatches[date]["matches"]:
@@ -227,15 +231,14 @@ class Bot(commands.Bot):
             if not isInList:
                 if i - 1 == -1:
                     lpgain = lp - savedMatches[date]["startlp"]
-                    # print("first game")
-                    # print(f'{lp} - {savedMatches[date]["startlp"]}')
+                    #print("first game")
+                    #print(f'{lp} - {savedMatches[date]["startlp"]}')
                 else:
                     lpgain = lp - savedMatches[date]["matches"][i - 1]["new_lp"]
-                    # print(f'{lp} - {savedMatches[date]["matches"][i - 1]["new_lp"]}')
+                    #print(f'{lp} - {savedMatches[date]["matches"][i - 1]["new_lp"]}')
                 savedMatches[date]["matches"].append({"matchid": matchid, "new_lp": lp, "lpgain": lpgain})
 
         saveMatches(savedMatches)
-
 
 async def err_msg(err, ctx):
     if err.response.status_code == 429:
@@ -244,18 +247,12 @@ async def err_msg(err, ctx):
         await ctx.send(f'@{ctx.author.name} We couldnt find this summoner')
     else:
         raise
-
-
 def saveMatches(matches):
     with open("./json/matches.json", "w") as f:
         json.dump(matches, f, indent=4)
-
-
 def getMatches():
     with open("./json/matches.json", "r") as f:
         return json.load(f)
-
-
 def getLP(ranked_stats):
     # Get the LP of SOLO_DUO
     i = 0
@@ -263,18 +260,14 @@ def getLP(ranked_stats):
         if ranked_stats[i]['queueType'] == 'RANKED_SOLO_5x5':
             return ranked_stats[i]['leaguePoints']
         i = i + 1
-
-
 def getDailyLPGain():
     date = getDate()
     matches = getMatches()
     summoner = watcher.summoner.by_name("kr", "Leminem")
     ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
     current_lp = getLP(ranked_stats)
-    lp = current_lp - matches[date]["startlp"]
+    lp = current_lp-matches[date]["startlp"]
     return matches[date]["startlp"], lp
-
-
 def getGameType(match):
     queueId = match["info"]["queueId"]
     if queueId == 1020:
@@ -291,8 +284,6 @@ def getGameType(match):
         return "Normal"
     if queueId == 0:
         return "Practice Tool"
-
-
 def getChannelSummoner(name):
     if name == "deceiver_euw":
         my_region = "euw1"
@@ -307,12 +298,8 @@ def getChannelSummoner(name):
         match_region = "asia"
         summonername = "Leminem"
     return my_region, match_region, summonername
-
-
 def getDate():
     return datetime.datetime.now().strftime("%d-%m-%Y")
-
-
 def getMatchesOfToday(match_region, me):
     date = datetime.datetime.now().strftime("%d/%m/%Y")
     todayzeroam = time.mktime(datetime.datetime.strptime(f"{date}/00/00",
@@ -320,7 +307,6 @@ def getMatchesOfToday(match_region, me):
     matches = watcher.match.matchlist_by_puuid(match_region, me['puuid'], type="ranked",
                                                start_time=int(todayzeroam))
     return matches
-
 
 bot = Bot()
 bot.run()
