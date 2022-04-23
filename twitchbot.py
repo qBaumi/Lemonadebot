@@ -19,12 +19,17 @@ class Bot(commands.Bot):
         super().__init__(token=token, prefix=['lem ', 'LEM', 'LeM', 'LEm', 'Lem', 'lEM', 'leM'],
                          initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect'],
                          nick="Lemon Bot", case_insensitive=True)
+        # Now get the champions loaded
+        versions = watcher.data_dragon.versions_for_region("kr")
+        champions_version = versions['n']['champion']
+        self.champions = watcher.data_dragon.champions(champions_version)["data"]
 
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
         # start the routine
         self.update_matches_loop.start()
+
 
     async def event_message(self, message):
         # Messages with echo set to True are messages sent by the bot...
@@ -69,6 +74,30 @@ class Bot(commands.Bot):
     async def help(self, ctx: commands.Context):
         await ctx.send(
             f'@{ctx.author.name} This is a list of commands, you need to type lem before them e.g. lem rank, lem lastgame, lem winrate')
+
+    @commands.command(aliases=["players"])
+    async def player(self, ctx: commands.Context):
+
+        region, match_region, summonername = getChannelSummoner(ctx.channel.name)
+
+        def getChampFromId(id):
+            for champ in self.champions:
+                if self.champions[champ]["key"] == str(id):
+                    # print(dicts[champ]["id"])
+                    return self.champions[champ]["id"]
+
+        try:
+            me = watcher.summoner.by_name(region, summonername)
+            game = watcher.spectator.by_summoner(region, me["id"])
+            out = f""
+            for participant in game["participants"]:
+                name = participant["summonerName"]
+                champ = getChampFromId(participant["championId"])
+                out += f"{name}({champ}), "
+            out = out[0:len(out)-2]
+            await ctx.send(out)
+        except ApiError as err:
+            await err_msg(err, ctx)
 
     @commands.command(aliases=["lp"])
     async def rank(self, ctx: commands.Context):
@@ -238,7 +267,9 @@ class Bot(commands.Bot):
 
 
 async def err_msg(err, ctx):
-    if err.response.status_code == 429:
+    if err.response.status_code == 404:
+        await ctx.send(f"@{ctx.author.name} Summoner is currently not ingame")
+    elif err.response.status_code == 429:
         await ctx.send(f'@{ctx.author.name} Connection error')
     elif err.response.status_code == 404:
         await ctx.send(f'@{ctx.author.name} We couldnt find this summoner')
