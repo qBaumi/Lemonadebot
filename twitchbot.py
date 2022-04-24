@@ -23,6 +23,7 @@ class Bot(commands.Bot):
         versions = watcher.data_dragon.versions_for_region("kr")
         champions_version = versions['n']['champion']
         self.champions = watcher.data_dragon.champions(champions_version)["data"]
+        self.runes = watcher.data_dragon.runes_reforged(champions_version)
 
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
@@ -95,6 +96,47 @@ class Bot(commands.Bot):
                 champ = getChampFromId(participant["championId"])
                 out += f"{name}({champ}), "
             out = out[0:len(out)-2]
+            await ctx.send(out)
+        except ApiError as err:
+            await err_msg(err, ctx)
+
+    @commands.command(aliases=["rune"])
+    async def runes(self, ctx: commands.Context):
+
+        region, match_region, summonername = getChannelSummoner(ctx.channel.name)
+
+        def getRuneFromId(id):
+            for tree in self.runes:
+                for something in tree["slots"]:
+                    for rune in something["runes"]:
+                        name = rune["name"]
+                        runeid = rune["id"]
+                        if id == runeid:
+                            return name
+
+        def getShardRune(id):
+            if id == 5005:
+                return "AS"
+            elif id == 5008:
+                return "DMG"
+            elif id == 5002:
+                return "ARM"
+            elif id == 5007:
+                return "CDR"
+            elif id == 5003:
+                return "MR"
+            elif id == 5001:
+                return "HP"
+
+        try:
+            me = watcher.summoner.by_name(region, summonername)
+            game = watcher.spectator.by_summoner(region, me["id"])
+            out = f""
+            for participant in game["participants"]:
+                name = participant["summonerName"]
+                if name == summonername:
+                    runes = participant["perks"]["perkIds"]
+                    out = f'{getRuneFromId(runes[0])}: {getRuneFromId(runes[1])}, {getRuneFromId(runes[2])}, {getRuneFromId(runes[3])} | {getRuneFromId(runes[4])}, {getRuneFromId(runes[5])} | {getShardRune(runes[6])}, {getShardRune(runes[7])}, {getShardRune(runes[8])}'
             await ctx.send(out)
         except ApiError as err:
             await err_msg(err, ctx)
