@@ -17,7 +17,7 @@ class Bot(commands.Bot):
         # prefix can be a callable, which returns a list of strings or a string...
         # initial_channels can also be a callable which returns a list of strings...
         super().__init__(token=token, prefix=['lem ', 'LEM', 'LeM', 'LEm', 'Lem', 'lEM', 'leM'],
-                         initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect'],
+                         initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect', 'rango235'],
                          nick="Lemon Bot", case_insensitive=True)
         # Now get the champions loaded
         versions = watcher.data_dragon.versions_for_region("kr")
@@ -375,6 +375,10 @@ def getChannelSummoner(name):
         my_region = "euw1"
         match_region = "europe"
         summonername = "TheDisconnect"
+    elif name == "rango235":
+        my_region = "euw1"
+        match_region = "europe"
+        summonername = "I love Fullclear"
     else:
         my_region = "kr"
         match_region = "asia"
