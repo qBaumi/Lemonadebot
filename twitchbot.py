@@ -363,7 +363,7 @@ def getGameType(match):
     if queueId == 400:
         return "Normal"
     if queueId == 0:
-        return "Practice Tool"
+        return "Custom"
 
 
 def getChannelSummoner(name):
