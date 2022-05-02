@@ -66,7 +66,7 @@ class Bot(commands.Bot):
         print(type(current_track))
         print(current_track)
         if current_track is None:
-            out = "No song currently playing"
+            out = f"@{ctx.author.name} No song currently playing or strimmer hasn't set it up yet Voidge"
         else:
             out = f"{current_track.title} - {current_track.artist}"
         await ctx.send(out)
@@ -162,12 +162,8 @@ class Bot(commands.Bot):
                 i = i + 1
             await ctx.send(out)
         except ApiError as err:
-            if err.response.status_code == 429:
-                await ctx.send(f'@{ctx.author.name} Connection error')
-            elif err.response.status_code == 404:
-                await ctx.send(f'@{ctx.author.name} We couldnt find this summoner')
-            else:
-                raise
+            await err_msg(err, ctx)
+            return
 
     @commands.command(aliases=["winrate", "losses", "daily", "wins"])
     async def stats(self, ctx: commands.Context):
@@ -186,13 +182,16 @@ class Bot(commands.Bot):
 
                 # Check if match is saved and then get the win/lose by the lp
                 isInList = False
-                for smatch in savedMatches[date]["matches"]:
-                    if smatch["matchid"] == matchid:
-                        isInList = True
-                        if smatch["lpgain"] < 0:
-                            losses += 1
-                        else:
-                            wins += 1
+                try:
+                    for smatch in savedMatches[date]["matches"]:
+                        if smatch["matchid"] == matchid:
+                            isInList = True
+                            if smatch["lpgain"] < 0:
+                                losses += 1
+                            else:
+                                wins += 1
+                except:
+                    pass
 
                 # fetch the match otherwise
                 if not isInList:
@@ -315,6 +314,8 @@ async def err_msg(err, ctx):
         await ctx.send(f'@{ctx.author.name} Connection error')
     elif err.response.status_code == 404:
         await ctx.send(f'@{ctx.author.name} We couldnt find this summoner')
+    elif err.response.status_code == 503:
+        await ctx.send(f'@{ctx.author.name} Riot API server down. Sadge')
     else:
         raise
 
