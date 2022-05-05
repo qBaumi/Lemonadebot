@@ -30,7 +30,8 @@ class Bot(commands.Bot):
         print(f'User id is | {self.user_id}')
         # start the routine
         self.update_matches_loop.start()
-
+        #channel = await self.fetch_channel("qbaumi2004")
+        #print(channel)
 
     async def event_message(self, message):
         # Messages with echo set to True are messages sent by the bot...
@@ -60,13 +61,13 @@ class Bot(commands.Bot):
             # username=username,
             # password_hash=password_hash,
         )
-        user = network.get_user("qBaumi")
+        user = network.get_user("lolnemesis")
         print(user)
         current_track = user.get_now_playing()
         print(type(current_track))
         print(current_track)
         if current_track is None:
-            out = f"@{ctx.author.name} No song currently playing or strimmer hasn't set it up yet Voidge"
+            out = f"@{ctx.author.name} No song currently playing"
         else:
             out = f"{current_track.title} - {current_track.artist}"
         await ctx.send(out)
