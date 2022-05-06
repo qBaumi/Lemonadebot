@@ -66,7 +66,7 @@ class Bot(commands.Bot):
         try:
             current_track = user.get_now_playing()
         except:
-            await ctx.send("The website with which the song gets tracked is currently dead. This means the song command doesnt work currently and it's not caused by Lemonadebot")
+            await ctx.send("The website with which the song gets tracked is currently dead.")
             return
         print(type(current_track))
         print(current_track)
