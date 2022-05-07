@@ -63,7 +63,11 @@ class Bot(commands.Bot):
         )
         user = network.get_user("lolnemesis")
         print(user)
-        current_track = user.get_now_playing()
+        try:
+            current_track = user.get_now_playing()
+        except:
+            await ctx.send("The website with which the song gets tracked is currently dead.")
+            return
         print(type(current_track))
         print(current_track)
         if current_track is None:
