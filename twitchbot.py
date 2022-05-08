@@ -71,7 +71,7 @@ class Bot(commands.Bot):
         print(type(current_track))
         print(current_track)
         if current_track is None:
-            out = f"@{ctx.author.name} No song currently playing or technical difficulties not caused by the bot"
+            out = f"@{ctx.author.name} No song currently playing or Streamer is playing local files"
         else:
             out = f"{current_track.title} - {current_track.artist}"
         await ctx.send(out)
