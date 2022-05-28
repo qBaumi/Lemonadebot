@@ -55,7 +55,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def changeAccount(self, ctx: commands.Context, newAccountName):
-        if not ctx.author.is_mod:
+        if not ctx.author.is_mod or ctx.author.name != "qbaumi2004":
             return
         with open("./json/account.json", "w") as f:
             json.dump({"name" : newAccountName}, f, indent=4)
