@@ -54,6 +54,13 @@ class Bot(commands.Bot):
         await ctx.send(f'Only english Habibi')
 
     @commands.command()
+    async def changeAccount(self, ctx: commands.Context, newAccountName):
+        if not ctx.author.is_mod:
+            return
+        with open("./json/account.json", "w") as f:
+            json.dump({"name" : newAccountName}, f, indent=4)
+
+    @commands.command()
     async def song(self, ctx: commands.Context):
         network = pylast.LastFMNetwork(
             api_key=lastfm_api_key,
@@ -279,7 +286,7 @@ class Bot(commands.Bot):
     async def update_matches_loop(self):
 
         # Get summoner, ranked stats and match history
-        summoner = watcher.summoner.by_name("kr", "Leminem")
+        summoner = watcher.summoner.by_name("kr", getNemesisAccountName())
         ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
         matches = getMatchesOfToday("asia", summoner)
 
@@ -392,9 +399,15 @@ def getChannelSummoner(name):
     else:
         my_region = "kr"
         match_region = "asia"
-        summonername = "Leminem"
+        with open("./json/account.json", "r") as f:
+            data = json.load(f)
+        summonername = data["name"]
     return my_region, match_region, summonername
 
+def getNemesisAccountName():
+    with open("./json/account.json", "r") as f:
+        data = json.load(f)
+    return data["name"]
 
 def getDate():
     return datetime.datetime.now().strftime("%d-%m-%Y")
