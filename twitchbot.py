@@ -54,7 +54,8 @@ class Bot(commands.Bot):
         await ctx.send(f'Only english Habibi')
 
     @commands.command()
-    async def changeAccount(self, ctx: commands.Context, newAccountName):
+    async def changeAccount(self, ctx: commands.Context, *, newAccountName):
+        print(newAccountName)
         if not ctx.author.is_mod or ctx.author.name != "qbaumi2004":
             return
         with open("./json/account.json", "w") as f:
