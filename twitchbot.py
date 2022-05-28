@@ -359,7 +359,7 @@ def getLP(ranked_stats):
 def getDailyLPGain():
     date = getDate()
     matches = getMatches()
-    summoner = watcher.summoner.by_name("kr", getChannelSummoner("lol_nemesis"))
+    summoner = watcher.summoner.by_name("kr", getChannelSummoner("lol_nemesis")[2])
     ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
     current_lp = getLP(ranked_stats)
     lp = current_lp - matches[date]["startlp"]
