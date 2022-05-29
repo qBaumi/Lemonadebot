@@ -60,6 +60,7 @@ class Bot(commands.Bot):
             return
         with open("./json/account.json", "w") as f:
             json.dump({"name" : newAccountName}, f, indent=4)
+        await ctx.send(f"{ctx.author.mention} successfully changed Account to {newAccountName}")
 
     @commands.command()
     async def song(self, ctx: commands.Context):
