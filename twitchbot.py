@@ -56,11 +56,18 @@ class Bot(commands.Bot):
     @commands.command()
     async def changeAccount(self, ctx: commands.Context, *, newAccountName):
         print(newAccountName)
-        if not ctx.author.is_mod or ctx.author.name != "qbaumi2004":
+
+        if not ctx.author.is_mod and str(ctx.author.name) != "qbaumi2004":
+            print("return")
             return
         with open("./json/account.json", "w") as f:
             json.dump({"name" : newAccountName}, f, indent=4)
         await ctx.send(f"{ctx.author.mention} successfully changed Account to {newAccountName}")
+
+    @commands.command()
+    async def account(self, ctx: commands.Context):
+        acc = getNemesisAccountName()
+        await ctx.send(f"{ctx.author.mention} {acc}")
 
     @commands.command()
     async def song(self, ctx: commands.Context):
