@@ -1,3 +1,5 @@
+import datetime
+
 from twitchio.ext import commands, routines
 import utils
 from config import token, lastfm_api_key, lastfm_api_secret, watcher, cooldown
@@ -41,7 +43,7 @@ class Bot(commands.Bot):
             #   {"command" : command, "user" : message.author.name, "userid" : message.author.id, "date" : utils.getDate(), "timestamp" : datetime.datetime.now()}
             # ]
             data = utils.getCommandStats()
-            data.append(command)
+            data.append({"command" : command, "user" : message.author.name, "userid" : message.author.id, "date" : utils.getDate(), "timestamp" : datetime.datetime.now()})
             utils.saveCommandStats(data)
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
