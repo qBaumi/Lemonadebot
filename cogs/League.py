@@ -20,10 +20,10 @@ class League(commands.Cog):
         region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
         def getChampFromId(id):
-            for champ in self.champions:
-                if self.champions[champ]["key"] == str(id):
+            for champ in self.bot.champions:
+                if self.bot.champions[champ]["key"] == str(id):
                     # print(dicts[champ]["id"])
-                    return self.champions[champ]["id"]
+                    return self.bot.champions[champ]["id"]
 
         try:
             me = watcher.summoner.by_name(region, summonername)
@@ -45,7 +45,7 @@ class League(commands.Cog):
         region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
         def getRuneFromId(id):
-            for tree in self.runes:
+            for tree in self.bot.runes:
                 for something in tree["slots"]:
                     for rune in something["runes"]:
                         name = rune["name"]
