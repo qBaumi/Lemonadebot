@@ -157,4 +157,5 @@ pubsub.py
 eventsub.py
 eventsubnextry.py
 json/matches.json
+./json/matches.json
 eventsubnextry.py
