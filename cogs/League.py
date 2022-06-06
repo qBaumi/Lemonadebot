@@ -106,7 +106,7 @@ class League(commands.Cog):
             return
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command(aliases=["winrate", "losses", "daily", "wins", "wr"])
+    @commands.command(aliases=["winrate", "losses", "daily", "wins"])
     async def stats(self, ctx: commands.Context):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
