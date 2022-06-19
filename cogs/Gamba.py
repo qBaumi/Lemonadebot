@@ -1,6 +1,6 @@
 import twitchio
 from twitchio.ext import commands
-from config import cooldown
+from config import cooldown, gamba_token
 import utils, json
 
 
@@ -8,7 +8,7 @@ class Gamba(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
+        self.current_prediction = None
     """
         -- MOD COMMANDS
         whitelist
@@ -24,7 +24,7 @@ class Gamba(commands.Cog):
 
     @commands.command()
     async def whitelist(self, ctx: commands.Context, action: str = None, user: twitchio.User = None):
-        if not ctx.author.is_mod and str(ctx.author.name) != "qbaumi2004":
+        if not ctx.author.is_mod and ctx.author.name != "qbaumi2004":
             return
         # load whitelist
         with open("./json/whitelist.json", "r") as f:
@@ -64,17 +64,27 @@ class Gamba(commands.Cog):
         # load whitelist
         with open("./json/whitelist.json", "r") as f:
             whitelist = json.load(f)
-        if ctx.author.id not in whitelist and str(ctx.author.name) != "qbaumi2004":
+        if ctx.author.id not in whitelist and ctx.author.name != "qbaumi2004":
             return
-        if action is None:
+        if action == "":
             # send help
             await ctx.send(f"examples: 'gamba start', 'gamba end win', 'gamba end lose'")
         elif action == "start":
             # start gamba
-            pass
+            user = await ctx.channel.user()
+            if self.current_prediction is None:
+                self.current_prediction = user.create_prediction(gamba_token, "WIN OR LOSE", "win", "lose", 120)
+            else:
+                await ctx.send("There is already a predction going on")
         elif action == "end" and outcome == "win" or action == "end" and outcome == "lose":
             # end gamba
-            pass
+            if self.current_prediction is not None:
+                user = await ctx.channel.user()
+                await user.end_prediction(gamba_token, self.current_prediction.id, "HmmSwing ", outcome)
+                self.current_prediction = None
+            else:
+                await ctx.send("There is no predction going on")
+
         else:
             await ctx.send(f"examples: 'gamba start', 'gamba end win', 'gamba end lose'")
 

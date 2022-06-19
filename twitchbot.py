@@ -13,7 +13,7 @@ class Bot(commands.Bot):
         # prefix can be a callable, which returns a list of strings or a string...
         # initial_channels can also be a callable which returns a list of strings...
         super().__init__(token=token, prefix=['lem ', 'LEM ', 'LeM ', 'LEm ', 'Lem ', 'lEM ', 'leM '],
-                         initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect', 'rango235'],
+                         initial_channels=['lol_nemesis', 'qbaumi2004', 'deceiver_euw', 'thedisconnect', 'rango235', 'lemonadebot_'],
                          nick="Lemon Bot", case_insensitive=True)
         # Now get the champions loaded
         versions = watcher.data_dragon.versions_for_region("kr")
