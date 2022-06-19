@@ -1902,5 +1902,559 @@
                 "lpgain": 21
             }
         ]
+    },
+    "06-06-2022": {
+        "startlp": 802,
+        "matches": [
+            {
+                "matchid": "KR_5955662350",
+                "new_lp": 786,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5955737413",
+                "new_lp": 807,
+                "lpgain": 21
+            },
+            {
+                "matchid": "KR_5955784467",
+                "new_lp": 826,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5955850580",
+                "new_lp": 847,
+                "lpgain": 21
+            },
+            {
+                "matchid": "KR_5955877922",
+                "new_lp": 867,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5955956600",
+                "new_lp": 887,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5956043794",
+                "new_lp": 907,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5956117363",
+                "new_lp": 929,
+                "lpgain": 22
+            },
+            {
+                "matchid": "KR_5956202482",
+                "new_lp": 913,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5956206595",
+                "new_lp": 929,
+                "lpgain": 16
+            },
+            {
+                "matchid": "KR_5956208630",
+                "new_lp": 949,
+                "lpgain": 20
+            }
+        ]
+    },
+    "07-06-2022": {
+        "startlp": 949,
+        "matches": [
+            {
+                "matchid": "KR_5956979949",
+                "new_lp": 969,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5957207968",
+                "new_lp": 949,
+                "lpgain": -20
+            },
+            {
+                "matchid": "KR_5957295609",
+                "new_lp": 969,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5957374816",
+                "new_lp": 988,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5957451129",
+                "new_lp": 971,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5957436295",
+                "new_lp": 990,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5957550846",
+                "new_lp": 1010,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5957593978",
+                "new_lp": 1031,
+                "lpgain": 21
+            },
+            {
+                "matchid": "KR_5957585819",
+                "new_lp": 1051,
+                "lpgain": 20
+            }
+        ]
+    },
+    "08-06-2022": {
+        "startlp": 1051,
+        "matches": [
+            {
+                "matchid": "KR_5958612028",
+                "new_lp": 1071,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5958579898",
+                "new_lp": 1091,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5958709317",
+                "new_lp": 1071,
+                "lpgain": -20
+            },
+            {
+                "matchid": "KR_5958766038",
+                "new_lp": 1090,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5958834674",
+                "new_lp": 1109,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5958931597",
+                "new_lp": 1128,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5958948627",
+                "new_lp": 1110,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5959103710",
+                "new_lp": 1092,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5959028558",
+                "new_lp": 1075,
+                "lpgain": -17
+            }
+        ]
+    },
+    "09-06-2022": {
+        "startlp": 1075,
+        "matches": [
+            {
+                "matchid": "KR_5959807057",
+                "new_lp": 1057,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5959963089",
+                "new_lp": 1039,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5960240062",
+                "new_lp": 1021,
+                "lpgain": -18
+            }
+        ]
+    },
+    "10-06-2022": {
+        "startlp": 1021,
+        "matches": [
+            {
+                "matchid": "KR_5961743816",
+                "new_lp": 1001,
+                "lpgain": -20
+            },
+            {
+                "matchid": "KR_5961914925",
+                "new_lp": 1001,
+                "lpgain": 0
+            },
+            {
+                "matchid": "KR_5962091242",
+                "new_lp": 984,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5962088162",
+                "new_lp": 966,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5962156574",
+                "new_lp": 985,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5962245158",
+                "new_lp": 1004,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5962344413",
+                "new_lp": 1023,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5962420178",
+                "new_lp": 1006,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5962436871",
+                "new_lp": 1025,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5962502453",
+                "new_lp": 1008,
+                "lpgain": -17
+            }
+        ]
+    },
+    "11-06-2022": {
+        "startlp": 1008,
+        "matches": [
+            {
+                "matchid": "KR_5963901428",
+                "new_lp": 1026,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5963926504",
+                "new_lp": 1046,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5964033411",
+                "new_lp": 1030,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5964104928",
+                "new_lp": 1051,
+                "lpgain": 21
+            },
+            {
+                "matchid": "KR_5964178912",
+                "new_lp": 1071,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5964330809",
+                "new_lp": 1056,
+                "lpgain": -15
+            }
+        ]
+    },
+    "12-06-2022": {
+        "startlp": 1056,
+        "matches": [
+            {
+                "matchid": "KR_5966165559",
+                "new_lp": 1076,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5966335127",
+                "new_lp": 1061,
+                "lpgain": -15
+            },
+            {
+                "matchid": "KR_5966586606",
+                "new_lp": 1045,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5966714758",
+                "new_lp": 1029,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5966729672",
+                "new_lp": 1049,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5966797842",
+                "new_lp": 1032,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5966905155",
+                "new_lp": 1015,
+                "lpgain": -17
+            }
+        ]
+    },
+    "13-06-2022": {
+        "startlp": 1015,
+        "matches": [
+            {
+                "matchid": "KR_5967814324",
+                "new_lp": 1034,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5967911425",
+                "new_lp": 1018,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5968000627",
+                "new_lp": 1002,
+                "lpgain": -16
+            },
+            {
+                "matchid": "KR_5967978019",
+                "new_lp": 985,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5968159799",
+                "new_lp": 965,
+                "lpgain": -20
+            },
+            {
+                "matchid": "KR_5968264411",
+                "new_lp": 948,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5968239390",
+                "new_lp": 931,
+                "lpgain": -17
+            }
+        ]
+    },
+    "14-06-2022": {
+        "startlp": 931,
+        "matches": [
+            {
+                "matchid": "KR_5969412105",
+                "new_lp": 950,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5969550869",
+                "new_lp": 933,
+                "lpgain": -17
+            },
+            {
+                "matchid": "KR_5969671893",
+                "new_lp": 951,
+                "lpgain": 18
+            }
+        ]
+    },
+    "15-06-2022": {
+        "startlp": 951,
+        "matches": [
+            {
+                "matchid": "KR_5971028486",
+                "new_lp": 969,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5971173538",
+                "new_lp": 987,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5971169352",
+                "new_lp": 1006,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5971274990",
+                "new_lp": 1024,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5971360197",
+                "new_lp": 1003,
+                "lpgain": -21
+            },
+            {
+                "matchid": "KR_5971362838",
+                "new_lp": 1021,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5971375518",
+                "new_lp": 1003,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5971379041",
+                "new_lp": 985,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5971392267",
+                "new_lp": 968,
+                "lpgain": -17
+            }
+        ]
+    },
+    "16-06-2022": {
+        "startlp": 968,
+        "matches": [
+            {
+                "matchid": "KR_5971982173",
+                "new_lp": 950,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5971978584",
+                "new_lp": 931,
+                "lpgain": -19
+            },
+            {
+                "matchid": "KR_5972314871",
+                "new_lp": 950,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5972461596",
+                "new_lp": 968,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5972472982",
+                "new_lp": 948,
+                "lpgain": -20
+            },
+            {
+                "matchid": "KR_5972646046",
+                "new_lp": 967,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5972751855",
+                "new_lp": 985,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5972715639",
+                "new_lp": 967,
+                "lpgain": -18
+            }
+        ]
+    },
+    "17-06-2022": {
+        "startlp": 967,
+        "matches": [
+            {
+                "matchid": "KR_5973854108",
+                "new_lp": 987,
+                "lpgain": 20
+            },
+            {
+                "matchid": "KR_5974072148",
+                "new_lp": 969,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5974119592",
+                "new_lp": 987,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5974179612",
+                "new_lp": 1004,
+                "lpgain": 17
+            },
+            {
+                "matchid": "KR_5974375419",
+                "new_lp": 1022,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5974448241",
+                "new_lp": 1040,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5974491675",
+                "new_lp": 1022,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5974553925",
+                "new_lp": 1041,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5974556750",
+                "new_lp": 1060,
+                "lpgain": 19
+            }
+        ]
+    },
+    "18-06-2022": {
+        "startlp": 1060,
+        "matches": [
+            {
+                "matchid": "KR_5975364291",
+                "new_lp": 1047,
+                "lpgain": -13
+            },
+            {
+                "matchid": "KR_5975398232",
+                "new_lp": 1065,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5975667786",
+                "new_lp": 1047,
+                "lpgain": -18
+            },
+            {
+                "matchid": "KR_5975794091",
+                "new_lp": 1066,
+                "lpgain": 19
+            },
+            {
+                "matchid": "KR_5975941657",
+                "new_lp": 1084,
+                "lpgain": 18
+            },
+            {
+                "matchid": "KR_5975956939",
+                "new_lp": 1067,
+                "lpgain": -17
+            }
+        ]
+    },
+    "19-06-2022": {
+        "startlp": 1067,
+        "matches": []
     }
 }

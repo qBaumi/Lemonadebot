@@ -23,5 +23,12 @@ class Other(commands.Cog):
     async def hug(self, ctx: commands.Context):
         await ctx.send(f'@{ctx.author.name} dankHug')
 
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command()
+    async def HmmSwing(self, ctx: commands.Context):
+        await ctx.send(f'HmmSwing ')
+
+
+
 def prepare(bot: commands.Bot):
     bot.add_cog(Other(bot))
