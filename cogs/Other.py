@@ -34,7 +34,8 @@ class Other(commands.Cog):
     async def valorank(self, ctx: commands.Context):
         r = requests.get(url="https://api.henrikdev.xyz/valorant/v2/mmr/kr/Leminem/KR1")
         data = r.json()
-        await ctx.send(f'@{ctx.author.name} {data["data"]["current_data"]["currenttierpatched"]}')
+        elo = str(data["data"]["current_data"]["elo"])
+        await ctx.send(f'@{ctx.author.name} {data["data"]["current_data"]["currenttierpatched"]} with {str(elo)[len(elo)-2:len(elo)]} RR/LP')
 
 
 
