@@ -156,6 +156,6 @@ config.py
 pubsub.py
 eventsub.py
 eventsubnextry.py
-json/matches.json
+
 ./json/matches.json
-json/command_stats.json
+

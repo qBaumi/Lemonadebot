@@ -1,6 +1,6 @@
 import utils, dbutils
 
-stats = utils.getCommandStats()
+stats = {} #utils.getCommandStats()
 for user in stats:
     name = stats[user]["username"]
     for command in stats[user]:

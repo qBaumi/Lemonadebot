@@ -83,16 +83,7 @@ def getNemesisAccountName():
         data = json.load(f)
     return data["name"]
 
-def getCommandStats():
-    with open("./json/command_stats.json", "r") as f:
-        data = json.load(f)
-    f.close()
-    return data
 
-def saveCommandStats(newData):
-    with open("./json/command_stats.json", "w") as f:
-        json.dump(newData, f, indent=4)
-    f.close()
 
 def getDate():
     return datetime.datetime.now().strftime("%d-%m-%Y")
