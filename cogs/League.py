@@ -3,6 +3,8 @@ import math
 
 from riotwatcher import ApiError
 from twitchio.ext import commands
+
+import dbutils
 from config import cooldown
 import utils, json
 from twitchio.ext import routines
@@ -22,7 +24,6 @@ class League(commands.Cog):
         def getChampFromId(id):
             for champ in self.bot.champions:
                 if self.bot.champions[champ]["key"] == str(id):
-                    # print(dicts[champ]["id"])
                     return self.bot.champions[champ]["id"]
 
         try:
@@ -109,41 +110,13 @@ class League(commands.Cog):
     @commands.command(aliases=["winrate", "losses", "daily", "wins", "wr"])
     async def stats(self, ctx: commands.Context):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
-
+        utils.update_matches()
         try:
 
             me = watcher.summoner.by_name(my_region, summonername)
-            matches = utils.getMatchesOfToday(match_region, me)
-            savedMatches = utils.getMatches()
-            date = utils.getDate()
-            wins = 0
-            losses = 0
-
-            for matchid in matches:
-
-                # Check if match is saved and then get the win/lose by the lp
-                isInList = False
-                try:
-                    for smatch in savedMatches[date]["matches"]:
-                        if smatch["matchid"] == matchid:
-                            isInList = True
-                            if smatch["lpgain"] < 0:
-                                losses += 1
-                            else:
-                                wins += 1
-                except:
-                    pass
-
-                # fetch the match otherwise
-                if not isInList:
-                    match = watcher.match.by_id(match_region, matchid)
-                    for participant in match["info"]["participants"]:
-                        if participant["puuid"] == me["puuid"]:
-                            if participant["win"] == True:
-                                wins += 1
-                            else:
-                                losses += 1
-                            break
+            ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+            current_lp = utils.getLP(ranked_stats)
+            wins, losses = dbutils.getwinslosses()
 
             if losses == 0 and wins > 0:
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: 100%"
@@ -155,7 +128,7 @@ class League(commands.Cog):
             # Get LP Gain if channel is nemesis
             if ctx.channel.name == "lol_nemesis" and not out.endswith(":/"):
                 try:
-                    startlp, lpgain = utils.getDailyLPGain()
+                    startlp, lpgain = dbutils.getDailyLPGain(current_lp)
                     if lpgain < 0:
                         s = "lost"
                     else:

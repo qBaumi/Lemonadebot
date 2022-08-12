@@ -1,6 +1,8 @@
 import datetime
 
 from twitchio.ext import commands, routines
+
+import dbutils
 import utils
 from config import token, lastfm_api_key, lastfm_api_secret, watcher, cooldown
 
@@ -39,9 +41,6 @@ class Bot(commands.Bot):
         if message.content.startswith("lem "):
             print(f"{message.author.name}: {message.content}")
             command = message.content.lower()[4:len(message.content)]
-            # [
-            #   {"command" : command, "user" : message.author.name, "userid" : message.author.id, "date" : utils.getDate(), "timestamp" : datetime.datetime.now()}
-            # ]
             # {
             #   message.author.id : { "username" : message.author.name, command : data[message.author.id][command] + 1
             # }
@@ -78,41 +77,15 @@ class Bot(commands.Bot):
     @routines.routine(minutes=5)
     async def update_matches_loop(self):
         # Get summoner, ranked stats and match history
-        summoner = watcher.summoner.by_name("kr", utils.getNemesisAccountName())
-        ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
-        matches = utils.getMatchesOfToday("asia", summoner)
+        accounts = ["small champ pool", "Leminem"]
+        for account in accounts:
+            summoner = watcher.summoner.by_name("kr", account)
+            ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
+            matches = utils.getMatchesOfToday("asia", summoner)
+            lp = utils.getLP(ranked_stats)
+            if matches:
+                dbutils.savematch(matches[0], lp, account)
 
-        date = utils.getDate()
-        savedMatches = utils.getMatches()
-        lp = utils.getLP(ranked_stats)
-
-        matches.reverse()  # reverse matches so that 0 is first match and x is last match
-        try:
-            savedMatches[date]
-        except:
-            savedMatches[date] = {}
-            savedMatches[date]["startlp"] = lp
-            savedMatches[date]["matches"] = []
-
-        for i, matchid in enumerate(matches):
-            # print(f"{i} {matchid}")
-            # check if matchid in list
-            isInList = False
-            for match in savedMatches[date]["matches"]:
-                if match["matchid"] == matchid:
-                    isInList = True
-
-            if not isInList:
-                if i - 1 == -1:
-                    lpgain = lp - savedMatches[date]["startlp"]
-                    # print("first game")
-                    # print(f'{lp} - {savedMatches[date]["startlp"]}')
-                else:
-                    lpgain = lp - savedMatches[date]["matches"][i - 1]["new_lp"]
-                    # print(f'{lp} - {savedMatches[date]["matches"][i - 1]["new_lp"]}')
-                savedMatches[date]["matches"].append({"matchid": matchid, "new_lp": lp, "lpgain": lpgain})
-
-        utils.saveMatches(savedMatches)
 
 bot = Bot()
 bot.load_module("cogs.Other")

@@ -1,6 +1,8 @@
 import datetime
 import json
 import time
+
+import dbutils
 from config import watcher
 
 
@@ -18,14 +20,6 @@ async def err_msg(err, ctx):
         raise
 
 
-def saveMatches(matches):
-    with open("./json/matches.json", "w") as f:
-        json.dump(matches, f, indent=4)
-
-
-def getMatches():
-    with open("./json/matches.json", "r") as f:
-        return json.load(f)
 
 
 def getLP(ranked_stats):
@@ -37,14 +31,15 @@ def getLP(ranked_stats):
         i = i + 1
 
 
-def getDailyLPGain():
-    date = getDate()
-    matches = getMatches()
-    summoner = watcher.summoner.by_name("kr", getChannelSummoner("lol_nemesis")[2])
+def update_matches():
+    # Get summoner, ranked stats and match history
+    account = getNemesisAccountName()
+    summoner = watcher.summoner.by_name("kr", account)
     ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
-    current_lp = getLP(ranked_stats)
-    lp = current_lp - matches[date]["startlp"]
-    return matches[date]["startlp"], lp
+    matches = getMatchesOfToday("asia", summoner)
+    lp = getLP(ranked_stats)
+    if matches:
+        dbutils.savematch(matches[0], lp, account)
 
 
 def getGameType(match):
@@ -81,9 +76,7 @@ def getChannelSummoner(name):
     else:
         my_region = "kr"
         match_region = "asia"
-        with open("./json/account.json", "r") as f:
-            data = json.load(f)
-        summonername = data["name"]
+        summonername = getNemesisAccountName()
     return my_region, match_region, summonername
 
 def getNemesisAccountName():
