@@ -4,6 +4,8 @@ from config import dbargs
 import utils
 
 def sql_exec(sql):
+    if "--" in sql:
+        return
     """
         W3SCHOOLS MYSQL CONNECTOR FOR MOR INFO
     """
@@ -22,6 +24,8 @@ def sql_exec(sql):
     mycursor.close()
     mydb.close()
 def sql_select(sql):
+    if "--" in sql:
+        return
     mydb = mysql.connector.connect(
         host=dbargs["host"],
         user=dbargs["user"],
@@ -78,6 +82,9 @@ def getwinslosses():
     return wins, losses
 
 def addcommandtostats(id, username, command):
+    if "--" in command or ";" in command:
+        print("inject tried")
+        return
     try:
         count = sql_select(f"SELECT count FROM command_stats WHERE id = '{id}' AND command = '{command}'")[0][0]
         print(count)
