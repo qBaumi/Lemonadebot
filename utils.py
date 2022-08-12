@@ -1,7 +1,6 @@
 import datetime
 import json
 import time
-
 import dbutils
 from config import watcher
 

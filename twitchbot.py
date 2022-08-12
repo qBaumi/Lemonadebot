@@ -41,19 +41,7 @@ class Bot(commands.Bot):
         if message.content.startswith("lem "):
             print(f"{message.author.name}: {message.content}")
             command = message.content.lower()[4:len(message.content)]
-            # {
-            #   message.author.id : { "username" : message.author.name, command : data[message.author.id][command] + 1
-            # }
-            data = utils.getCommandStats()
-            try:
-                data[message.author.id]
-            except:
-                data[message.author.id] = {"username": message.author.name}
-            try:
-                data[message.author.id][command] = data[message.author.id][command] + 1
-            except:
-                data[message.author.id][command] = 1
-            utils.saveCommandStats(data)
+            dbutils.addcommandtostats(message.author.id, message.author.name, command)
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
