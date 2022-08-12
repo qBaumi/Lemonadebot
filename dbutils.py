@@ -13,8 +13,7 @@ def sql_exec(sql):
         password=dbargs["password"],
         port=dbargs["port"],
         database=dbargs["database"],
-        auth_plugin=dbargs["auth_plugin"],
-        charset='ascii'
+        auth_plugin=dbargs["auth_plugin"]
 
     )
     mycursor = mydb.cursor()
@@ -29,8 +28,7 @@ def sql_select(sql):
         password=dbargs["password"],
         port=dbargs["port"],
         database=dbargs["database"],
-        auth_plugin=dbargs["auth_plugin"],
-        charset='ascii'
+        auth_plugin=dbargs["auth_plugin"]
 
     )
     mycursor = mydb.cursor()
@@ -78,7 +76,11 @@ def getwinslosses():
     return wins, losses
 
 def addcommandtostats(id, username, command):
-    count = sql_select(f"SELECT count FROM command_stats WHERE id = '{id}' AND command = '{command}'")[0]
+    try:
+        count = sql_select(f"SELECT count FROM command_stats WHERE id = '{id}' AND command = '{command}'")[0][0]
+        print(count)
+    except:
+        count = None
     if count:
         sql_exec(f"UPDATE command_stats SET count = {count+1} WHERE id = '{id}' AND command = '{command}'")
     else:
