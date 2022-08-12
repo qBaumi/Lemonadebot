@@ -41,7 +41,7 @@ def sql_select(sql):
 def savematch(matchid, lp, account):
 
     date = utils.getDate()
-    last_matchid, last_lp = sql_select(f"SELECT matchid, lp FROM matches ORDER BY timestamp DESC LIMIT 1")[0]
+    last_matchid, last_lp = sql_select(f"SELECT matchid, lp FROM matches ORDER BY timestamp DESC LIMIT 1 WHERE account = '{account}'")[0]
     print("savematch")
     print(last_matchid, last_lp)
 
@@ -51,9 +51,11 @@ def savematch(matchid, lp, account):
 def getDailyLPGain(current_lp):
     date = utils.getDate()
 
-
-    startlp = sql_select(f"SELECT lp FROM matches WHERE date = '{date}' AND account = '{utils.getNemesisAccountName()}' ORDER BY timestamp DESC LIMIT 1")[0]
-    print(startlp)
+    try:
+        startlp = sql_select(f"SELECT lp FROM matches WHERE date = '{date}' AND account = '{utils.getNemesisAccountName()}' ORDER BY timestamp DESC LIMIT 1")[0]
+        print(startlp)
+    except:
+        startlp = None
     if not startlp:
         startlp = sql_select(f"SELECT lp FROM matches WHERE account = '{utils.getNemesisAccountName()}' ORDER BY timestamp DESC LIMIT 1")[0]
 
