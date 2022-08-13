@@ -45,7 +45,7 @@ def sql_select(sql):
 def savematch(matchid, lp, account):
 
     date = utils.getDate()
-    last_matchid, last_lp = sql_select(f"SELECT matchid, lp FROM matches ORDER BY timestamp DESC LIMIT 1 WHERE account = '{account}'")[0]
+    last_matchid, last_lp = sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
     print("savematch")
     print(last_matchid, last_lp)
 
