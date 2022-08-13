@@ -128,7 +128,9 @@ class League(commands.Cog):
             # Get LP Gain if channel is nemesis
             if ctx.channel.name == "lol_nemesis" and not out.endswith(":/"):
                 try:
+                    print(current_lp)
                     startlp, lpgain = dbutils.getDailyLPGain(current_lp)
+                    print(startlp, lpgain)
                     if lpgain < 0:
                         s = "lost"
                     else:

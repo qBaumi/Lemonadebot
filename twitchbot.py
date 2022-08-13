@@ -41,7 +41,10 @@ class Bot(commands.Bot):
         if message.content.startswith("lem "):
             print(f"{message.author.name}: {message.content}")
             command = message.content.lower()[4:len(message.content)]
-            dbutils.addcommandtostats(message.author.id, message.author.name, command)
+            try:
+                dbutils.addcommandtostats(message.author.id, message.author.name, command)
+            except:
+                pass
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
