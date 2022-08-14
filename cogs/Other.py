@@ -31,6 +31,21 @@ class Other(commands.Cog):
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command()
+    async def HmmPls(self, ctx: commands.Context):
+        await ctx.send(f'HmmPls ')
+
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command()
+    async def vanish(self, ctx: commands.Context):
+        await ctx.send(f'peepoHide ')
+
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command()
+    async def futa(self, ctx: commands.Context):
+        await ctx.send(f'{ctx.author.mention} Weirdge ✋')
+
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command()
     async def valorank(self, ctx: commands.Context):
         r = requests.get(url="https://api.henrikdev.xyz/valorant/v2/mmr/kr/Leminem/KR1")
         data = r.json()
