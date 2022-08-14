@@ -100,6 +100,6 @@ def getMatchesOfToday(match_region, me):
 def isWhitelisted(ctx):
     with open("./json/whitelist.json", "r") as f:
         whitelist = json.load(f)
-    if ctx.author.id in whitelist or ctx.author.name != "qbaumi2004":
+    if ctx.author.id in whitelist or ctx.author.name == "qbaumi2004":
         return True
     return False
