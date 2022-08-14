@@ -56,7 +56,7 @@ def getDailyLPGain(current_lp):
     date = utils.getDate()
 
 
-    startlp = sql_select(f"SELECT lp FROM matches WHERE date != '{date}' AND account = '{utils.getNemesisAccountName()}' ORDER BY timestamp ASC LIMIT 1")[0][0]
+    startlp = sql_select(f"SELECT lp FROM matches WHERE date != '{date}' AND account = '{utils.getNemesisAccountName()}' ORDER BY timestamp DESC LIMIT 1")[0][0]
 
     lpgain = current_lp - startlp
     return startlp, lpgain
@@ -66,9 +66,10 @@ def getwinslosses():
     wins = 0
     losses = 0
     try:
-        lpgains = sql_select(f"SELECT lpgain FROM matches WHERE date = '{utils.getDate()}' AND account = '{utils.getNemesisAccountName()}'")[0]
+        lpgains = sql_select(f"SELECT lpgain FROM matches WHERE date = '{utils.getDate()}' AND account = '{utils.getNemesisAccountName()}'")
+        print(lpgains)
         for lpgain in lpgains:
-            if lpgain > 0:
+            if lpgain[0] > 0:
                 wins += 1
             else:
                 losses += 1
