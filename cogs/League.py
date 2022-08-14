@@ -183,6 +183,11 @@ class League(commands.Cog):
         except ApiError as err:
             await utils.err_msg(err, ctx)
 
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command()
+    async def account(self, ctx: commands.Context):
+        acc = utils.getNemesisAccountName()
+        await ctx.send(f"{ctx.author.mention} {acc}")
 
 
 

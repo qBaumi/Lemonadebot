@@ -52,11 +52,6 @@ class Bot(commands.Bot):
 
 
 
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def account(self, ctx: commands.Context):
-        acc = utils.getNemesisAccountName()
-        await ctx.send(f"{ctx.author.mention} {acc}")
 
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)

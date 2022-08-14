@@ -96,3 +96,10 @@ def getMatchesOfToday(match_region, me):
     matches = watcher.match.matchlist_by_puuid(match_region, me['puuid'], type="ranked",
                                                start_time=int(todayzeroam))
     return matches
+
+def isWhitelisted(ctx):
+    with open("./json/whitelist.json", "r") as f:
+        whitelist = json.load(f)
+    if ctx.author.id in whitelist or ctx.author.name != "qbaumi2004":
+        return True
+    return False

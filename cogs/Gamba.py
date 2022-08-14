@@ -61,10 +61,7 @@ class Gamba(commands.Cog):
 
     @commands.command()
     async def gamba(self, ctx: commands.Context, action: str = "", outcome: str = ""):
-        # load whitelist
-        with open("./json/whitelist.json", "r") as f:
-            whitelist = json.load(f)
-        if ctx.author.id not in whitelist and ctx.author.name != "qbaumi2004":
+        if not utils.isWhitelisted(ctx):
             return
         if action == "":
             # send help
