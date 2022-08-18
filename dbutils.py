@@ -71,7 +71,7 @@ def getwinslosses():
         for lpgain in lpgains:
             if lpgain[0] > 0:
                 wins += 1
-            else:
+            elif lpgain[0] < 0:
                 losses += 1
     except:
         pass
