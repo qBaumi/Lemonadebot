@@ -1,6 +1,9 @@
 import datetime
 import json
 import time
+
+import requests
+
 import dbutils
 from config import watcher
 
@@ -106,3 +109,23 @@ def isWhitelisted(ctx):
         return True
     print("Not Whitelisted")
     return False
+
+def getAllEmotes():
+    # ENDPOINTS
+    # https://api.frankerfacez.com/v1/room/lol_nemesis
+    # https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes
+    # https://api.betterttv.net/3/cached/users/twitch/86131599
+    emotes = []
+    bttv = requests.get("https://api.betterttv.net/3/cached/users/twitch/86131599")
+    ffz = requests.get("https://api.frankerfacez.com/v1/room/lol_nemesis")
+    seventv = requests.get("https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes")
+    for emote in bttv.json()["channelEmotes"]:
+        emotes.append(emote["code"])
+    for emote in bttv.json()["sharedEmotes"]:
+        emotes.append(emote["code"])
+    for emote in ffz.json()["sets"]["575523"]["emoticons"]:
+        emotes.append(emote["name"])
+    for emote in seventv.json():
+        emotes.append(emote["name"])
+    #print(emotes)
+    return emotes

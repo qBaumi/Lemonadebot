@@ -3,6 +3,7 @@ import mysql.connector
 from config import dbargs
 import utils
 
+
 def sql_exec(sql):
     if "--" in sql:
         return
@@ -23,6 +24,8 @@ def sql_exec(sql):
     mydb.commit()
     mycursor.close()
     mydb.close()
+
+
 def sql_select(sql):
     if "--" in sql:
         return
@@ -42,21 +45,23 @@ def sql_select(sql):
     mydb.close()
     return data
 
-def savematch(matchid, lp, account):
 
+def savematch(matchid, lp, account):
     date = utils.getDate()
-    last_matchid, last_lp = sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
-    print("savematch")
-    print(last_matchid, last_lp)
+    last_matchid, last_lp = \
+    sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
 
     if matchid != last_matchid:
-        sql_exec(f"INSERT INTO matches(date, matchid, lp, lpgain, account, timestamp) values('{date}', '{matchid}', {lp}, {lp-last_lp}, '{account}', {datetime.now().timestamp()})")
+        sql_exec(
+            f"INSERT INTO matches(date, matchid, lp, lpgain, account, timestamp) values('{date}', '{matchid}', {lp}, {lp - last_lp}, '{account}', {datetime.now().timestamp()})")
+
 
 def getDailyLPGain(current_lp):
     date = utils.getDate()
 
-
-    startlp = sql_select(f"SELECT lp FROM matches WHERE date != '{date}' AND account = '{utils.getNemesisAccountName()}' ORDER BY timestamp DESC LIMIT 1")[0][0]
+    startlp = sql_select(
+        f"SELECT lp FROM matches WHERE date != '{date}' AND account = '{utils.getNemesisAccountName()}' ORDER BY timestamp DESC LIMIT 1")[
+        0][0]
 
     lpgain = current_lp - startlp
     return startlp, lpgain
@@ -66,8 +71,8 @@ def getwinslosses():
     wins = 0
     losses = 0
     try:
-        lpgains = sql_select(f"SELECT lpgain FROM matches WHERE date = '{utils.getDate()}' AND account = '{utils.getNemesisAccountName()}'")
-        print(lpgains)
+        lpgains = sql_select(
+            f"SELECT lpgain FROM matches WHERE date = '{utils.getDate()}' AND account = '{utils.getNemesisAccountName()}'")
         for lpgain in lpgains:
             if lpgain[0] > 0:
                 wins += 1
@@ -77,16 +82,29 @@ def getwinslosses():
         pass
     return wins, losses
 
+
 def addcommandtostats(id, username, command):
     if "--" in command or ";" in command:
         print("inject tried")
         return
     try:
         count = sql_select(f"SELECT count FROM command_stats WHERE id = '{id}' AND command = '{command}'")[0][0]
-        print(count)
     except:
         count = None
     if count:
-        sql_exec(f"UPDATE command_stats SET count = {count+1} WHERE id = '{id}' AND command = '{command}'")
+        sql_exec(f"UPDATE command_stats SET count = {count + 1} WHERE id = '{id}' AND command = '{command}'")
     else:
         sql_exec(f"INSERT INTO command_stats(id, username, command, count) VALUES ('{id}','{username}','{command}', 1)")
+
+
+def addemotes(emotesinmessage):
+    for emote in emotesinmessage:
+
+        try:
+            count = sql_select(f"SELECT count FROM emote_tracker WHERE name = '{emote}'")[0][0]
+        except:
+            count = None
+        if count:
+            sql_exec(f"UPDATE emote_tracker SET count = {count + 1} WHERE name = '{emote}'")
+        else:
+            sql_exec(f"INSERT INTO emote_tracker(name, count) VALUES ('{emote}', 1)")
