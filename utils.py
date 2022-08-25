@@ -8,7 +8,6 @@ import dbutils
 from config import watcher
 
 
-
 async def err_msg(err, ctx):
     if err.response.status_code == 404:
         await ctx.send(f"@{ctx.author.name} Summoner is currently not ingame")
@@ -20,8 +19,6 @@ async def err_msg(err, ctx):
         await ctx.send(f'@{ctx.author.name} Riot API server down. Sadge')
     else:
         raise
-
-
 
 
 def getLP(ranked_stats):
@@ -81,11 +78,11 @@ def getChannelSummoner(name):
         summonername = getNemesisAccountName()
     return my_region, match_region, summonername
 
+
 def getNemesisAccountName():
     with open("./json/account.json", "r") as f:
         data = json.load(f)
     return data["name"]
-
 
 
 def getDate():
@@ -100,6 +97,7 @@ def getMatchesOfToday(match_region, me):
                                                start_time=int(todayzeroam))
     return matches
 
+
 def isWhitelisted(ctx):
     with open("./json/whitelist.json", "r") as f:
         whitelist = json.load(f)
@@ -110,16 +108,24 @@ def isWhitelisted(ctx):
     print("Not Whitelisted")
     return False
 
+
 def getAllEmotes():
     # ENDPOINTS
     # https://api.frankerfacez.com/v1/room/lol_nemesis
     # https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes
     # https://api.betterttv.net/3/cached/users/twitch/86131599
+    # https://api.betterttv.net/3/cached/emotes/global
+    # https://api.7tv.app/v2/emotes/global
+
     emotes = []
     bttv = requests.get("https://api.betterttv.net/3/cached/users/twitch/86131599")
+    bttvglobal = requests.get("https://api.betterttv.net/3/cached/emotes/global")
     ffz = requests.get("https://api.frankerfacez.com/v1/room/lol_nemesis")
     seventv = requests.get("https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes")
+    seventvglobal = requests.get("https://api.7tv.app/v2/emotes/global")
     for emote in bttv.json()["channelEmotes"]:
+        emotes.append(emote["code"])
+    for emote in bttvglobal.json():
         emotes.append(emote["code"])
     for emote in bttv.json()["sharedEmotes"]:
         emotes.append(emote["code"])
@@ -127,5 +133,6 @@ def getAllEmotes():
         emotes.append(emote["name"])
     for emote in seventv.json():
         emotes.append(emote["name"])
-    #print(emotes)
+    for emote in seventvglobal.json():
+        emotes.append(emote["name"])
     return emotes

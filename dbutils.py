@@ -49,7 +49,7 @@ def sql_select(sql):
 def savematch(matchid, lp, account):
     date = utils.getDate()
     last_matchid, last_lp = \
-    sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
+        sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
 
     if matchid != last_matchid:
         sql_exec(
@@ -98,13 +98,13 @@ def addcommandtostats(id, username, command):
 
 
 def addemotes(emotesinmessage):
+    date = utils.getDate()
     for emote in emotesinmessage:
-
         try:
-            count = sql_select(f"SELECT count FROM emote_tracker WHERE name = '{emote}'")[0][0]
+            count = sql_select(f"SELECT count FROM emote_tracker WHERE name = '{emote}' and date = '{date}'")[0][0]
         except:
             count = None
         if count:
-            sql_exec(f"UPDATE emote_tracker SET count = {count + 1} WHERE name = '{emote}'")
+            sql_exec(f"UPDATE emote_tracker SET count = {count + 1} WHERE name = '{emote}' and date = '{date}'")
         else:
-            sql_exec(f"INSERT INTO emote_tracker(name, count) VALUES ('{emote}', 1)")
+            sql_exec(f"INSERT INTO emote_tracker(name, count, date) VALUES ('{emote}', 1, '{date}')")
