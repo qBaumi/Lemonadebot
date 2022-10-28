@@ -99,6 +99,10 @@ class League(commands.Cog):
                     rank = my_ranked_stats[i]['tier'].lower()
                     rank = rank.capitalize()
                     out = f"@{ctx.author.name} {rank} {my_ranked_stats[i]['leaguePoints']}lp {my_ranked_stats[i]['wins']} wins {my_ranked_stats[i]['losses']} losses"
+                    if rank == "Challenger":
+                        # Get top challenger list
+                        toprank = utils.getTopRank(my_region, summonername)
+                        out = f"@{ctx.author.name} {rank}(Rank {toprank}) {my_ranked_stats[i]['leaguePoints']}lp {my_ranked_stats[i]['wins']} wins {my_ranked_stats[i]['losses']} losses"
 
                 i = i + 1
             await ctx.send(out)
