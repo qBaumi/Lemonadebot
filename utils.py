@@ -139,7 +139,7 @@ def getAllEmotes():
 
 def getTopRank(region, summonerName):
     response = watcher.league.challenger_by_queue(region, "RANKED_SOLO_5x5")
-    playerlist = response.entries
+    playerlist = response["entries"]
     for player in playerlist:
-        if player.summonerName == summonerName:
-            return player.rank
+        if player["summonerName"] == summonerName:
+            return player["rank"]
