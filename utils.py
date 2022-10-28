@@ -140,6 +140,7 @@ def getAllEmotes():
 def getTopRank(region, summonerName):
     response = watcher.league.challenger_by_queue(region, "RANKED_SOLO_5x5")
     playerlist = response["entries"]
-    for player in playerlist:
-        if player["summonerName"] == summonerName:
-            return player["rank"]
+    playerlist = sorted(playerlist, key=lambda d: d["leaguePoints"], reverse=True)
+    for i, player in enumerate(playerlist):
+        if player["summonerName"] == "small champ pool":
+            return i+1
