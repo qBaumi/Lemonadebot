@@ -90,7 +90,6 @@ async def eventsub_example():
     # the given function will be called every time this event is triggered
     await event_sub.listen_channel_follow(user.id, on_follow)
     await event_sub.listen_channel_points_custom_reward_redemption_add(user.id, on_redemption, reward_id="b74d3b2e-dbc0-4e84-a3de-0d6333fafa09")
-    print(twitch.get_used_refresh_token())
 
     # eventsub will run in its own process
     # so lets just wait for user input before shutting it all down again
