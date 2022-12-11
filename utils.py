@@ -97,6 +97,23 @@ def getMatchesOfToday(match_region, me):
                                                start_time=int(todayzeroam))
     return matches
 
+def getWintradesOfToday(match_region, me, summonername):
+    matches = getMatchesOfToday(match_region, me)
+    failed_wintrade = 0
+    succesfull_wintrade = 0
+
+    for matchid in matches:
+        match = watcher.match.by_id(match_region, matchid)
+        for participant in match["info"]["participants"]:
+            if participant["summonerName"] == summonername:
+                kda = ((participant["kills"]+participant["assists"])/max(participant["deaths"], 1))
+                if participant["win"] and kda < 2:
+                    failed_wintrade += 1
+                elif not participant["win"] and kda < 2:
+                    succesfull_wintrade += 1
+                break
+
+    return failed_wintrade, succesfull_wintrade
 
 def isWhitelisted(ctx):
     with open("./json/whitelist.json", "r") as f:

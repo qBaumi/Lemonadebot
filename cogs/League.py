@@ -196,6 +196,18 @@ class League(commands.Cog):
         acc = utils.getNemesisAccountName()
         await ctx.send(f"{ctx.author.mention} {acc}")
 
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command(aliases=["wintrades"])
+    async def wintrade(self, ctx: commands.Context):
+        print("wintrade")
+        my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
+        me = watcher.summoner.by_name(my_region, summonername)
+        failed_wintrades, successfull_wintrades = utils.getWintradesOfToday(match_region, me, summonername)
+        if failed_wintrades == 0 and successfull_wintrades == 0:
+            await ctx.send("No wintrades happened today yet")
+            return
+        await ctx.send(f"@{ctx.author.name} We got {successfull_wintrades} successful wintrades today and {failed_wintrades} failed wintrades")
+
 
 
 def prepare(bot: commands.Bot):

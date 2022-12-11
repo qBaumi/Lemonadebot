@@ -32,6 +32,12 @@ class Song(commands.Cog):
             out = f"{current_track.title} - {current_track.artist}"
         await ctx.send(out)
 
+    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
+    @commands.command()
+    async def playlist(self, ctx: commands.Context):
+        await ctx.send("Song Request Playlist: https://spoti.fi/3VYpBKa")
+
+
 
 def prepare(bot: commands.Bot):
     bot.add_cog(Song(bot))
