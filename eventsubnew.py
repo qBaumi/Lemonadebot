@@ -11,7 +11,7 @@ from CustomCacheHandler import CustomCacheHandler
 from config import client_secret, client_id, APP_ID, EVENTSUB_URL, APP_SECRET
 
 import logging
-logging.basicConfig(filename="log.txt")
+logging.basicConfig(filename="log.txt", level=logging.DEBUG)
 
 TARGET_USERNAME = 'lol_nemesis'
 
@@ -48,7 +48,7 @@ async def on_redemption(data: dict):
 
     else:
         print("ERROR: WRONG URI " + link)
-        logging.error("WRONG URI " + link)
+        logging.debug("WRONG URI " + link)
         return
 
     scope = ["playlist-modify-private", "playlist-modify-public"]
