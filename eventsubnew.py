@@ -16,8 +16,8 @@ logging.basicConfig(filename="log.txt", level=logging.DEBUG)
 TARGET_USERNAME = 'lol_nemesis'
 
 async def on_follow(data: dict):
-    print(data)
-    logging.debug("follow")
+    print("follow")
+
 
 
 
