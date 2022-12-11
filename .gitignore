@@ -155,7 +155,7 @@ cython_debug/
 config.py
 pubsub.py
 eventsub.py
-eventsubnextry.py
-
+eventsubnew.py
+json/token.json
 ./json/matches.json
-
+./json/token.json
