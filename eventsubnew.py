@@ -10,10 +10,14 @@ from twitchAPI.types import AuthScope
 from CustomCacheHandler import CustomCacheHandler
 from config import client_secret, client_id, APP_ID, EVENTSUB_URL, APP_SECRET
 
+import logging
+logging.basicConfig(filename="log.txt")
+
 TARGET_USERNAME = 'lol_nemesis'
 
 async def on_follow(data: dict):
     print(data)
+    logging.debug("follow")
 
 
 
@@ -31,6 +35,7 @@ async def on_redemption(data: dict):
     # 'redeemed_at': '2022-12-10T16:04:27.733458706Z', 'reward': {'id': 'b74d3b2e-dbc0-4e84-a3de-0d6333fafa09', 'title': 'Song Request',
     # 'prompt': 'Only spotify links. ', 'cost': 15000}}}
     link = data["event"]["user_input"]
+    original_link = link
     uri = ""
     if link.startswith("https://open.spotify.com/track/"):
         link = link.split("https://open.spotify.com/track/")[-1]
@@ -40,11 +45,11 @@ async def on_redemption(data: dict):
         link = link.split("highlight=")[1]
         link = link.split("?")[0]
         uri = link
+
     else:
         print("ERROR: WRONG URI " + link)
+        logging.error("WRONG URI " + link)
         return
-    print(link)
-    print(uri)
 
     scope = ["playlist-modify-private", "playlist-modify-public"]
     playlist_id = "2FfICVgwwXBuqbsKaoFbK5"
@@ -53,11 +58,8 @@ async def on_redemption(data: dict):
                                                    client_secret=client_secret,
                                                    redirect_uri="http://127.0.0.1:9090"))
 
-    playlists = sp.current_user_playlists()
-    print(playlists)
-
     results = sp.playlist_add_items(playlist_id, [uri])
-
+    logging.debug("ADDED SONG " + original_link)
 
 async def user_refresh(token, refresh_token):
     print("here")
