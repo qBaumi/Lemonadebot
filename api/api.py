@@ -18,7 +18,7 @@ def commands():
 
 @app.route('/emotes')
 def emotes():
-    emotestats = dbutils.sql_select(f"SELECT * FROM emote_tracker LIMIT 10")
+    emotestats = dbutils.sql_select(f"SELECT * FROM emote_tracker")
     response = flask.jsonify(emotestats)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
