@@ -1,0 +1,15 @@
+[
+        {"name": "Rank", "desc": "Shows current Rank and LP"},
+        {"name": "Song", "desc": "Shows the currently playing song. Does not work if the Streamer is playing local files with Spotify."},
+        {"name": "Stats", "desc": "Shows daily Stats like Winrate, LP Gains"},
+        {"name": "Lastgame", "desc": "Shows the last game played"},
+        {"name": "Players", "desc": "Shows all the current players ingame"},
+        {"name": "Runes", "desc": "Shows current Runes"},
+        {"name": "Wintrades", "desc": "Shows how many wintrades were done today and how many failed"},
+        {"name": "Valorank", "desc": "Shows Valorant Rank and RR"},
+        {"name": "Account", "desc": "Shows current account name set for this channel"},
+        {"name": "HmmSwing", "desc": "*Swings*"},
+        {"name": "Playlist", "desc": "Sends Link to Song Request Playlist"},
+        {"name": "Change_Account", "desc": "lem change_account <leaguename> - Only Mods and whitelisted people can use this command. Changes account for the bot to work, so it shows the correct rank. "},
+        {"name": "Whitelist", "desc": "lem whitelist - Shows whitelisted players, lem whitelist add <username> - Adds user to the whitelist, lem whitelist remove <username> - Removes user from the whitelist"}
+]
