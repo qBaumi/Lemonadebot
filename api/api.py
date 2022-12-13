@@ -2,7 +2,10 @@ import json
 
 import flask
 from flask import Flask
+import sys
 
+# appending the parent directory path
+sys.path.append('../')
 import dbutils
 
 app = Flask(__name__)
