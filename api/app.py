@@ -28,7 +28,7 @@ def emotes():
     return response
 
 @app.route('/emotes/today')
-def emotes():
+def emotestoday():
     date = utils.getDate()
     emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE date == {date}")
     response = flask.jsonify(emotestats)
@@ -36,7 +36,7 @@ def emotes():
     return response
 
 @app.route('/emotes/monthly')
-def emotes():
+def emotesmonthly():
     date = datetime.datetime.fromtimestamp((datetime.datetime.now().timestamp() - 2630000)).strftime("%Y-%m-%d")
     emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE CONCAT(SUBSTRING(date, 7, 10), '-', SUBSTRING(date, 4, 2), '-', SUBSTRING(date, 1, 2)) >= '{date}'")
     response = flask.jsonify(emotestats)
@@ -44,7 +44,7 @@ def emotes():
     return response
 
 @app.route('/emotes/weekly')
-def emotes():
+def emotesweekly():
     date = datetime.datetime.fromtimestamp((datetime.datetime.now().timestamp() - 604800)).strftime("%Y-%m-%d")
     emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE CONCAT(SUBSTRING(date, 7, 10), '-', SUBSTRING(date, 4, 2), '-', SUBSTRING(date, 1, 2)) >= '{date}'")
     response = flask.jsonify(emotestats)
