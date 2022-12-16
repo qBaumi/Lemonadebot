@@ -27,8 +27,8 @@ def emotes():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/emotes/today')
-def emotestoday():
+@app.route('/emotes/daily')
+def emotesdaily():
     date = utils.getDate()
     emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE date == {date}")
     response = flask.jsonify(emotestats)
