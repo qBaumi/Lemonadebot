@@ -29,15 +29,15 @@ def emotes():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/emotesdaily')
+@app.route('/emotes/daily')
 def emotesdaily():
     date = utils.getDate()
-    emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE date == {date}")
+    emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE date == '{date}'")
     response = flask.jsonify(emotestats)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/emotesmonthly')
+@app.route('/emotes/monthly')
 def emotesmonthly():
     date = datetime.datetime.fromtimestamp((datetime.datetime.now().timestamp() - 2630000)).strftime("%Y-%m-%d")
     emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE CONCAT(SUBSTRING(date, 7, 10), '-', SUBSTRING(date, 4, 2), '-', SUBSTRING(date, 1, 2)) >= '{date}'")
@@ -45,7 +45,7 @@ def emotesmonthly():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/emotesweekly')
+@app.route('/emotes/weekly')
 def emotesweekly():
     date = datetime.datetime.fromtimestamp((datetime.datetime.now().timestamp() - 604800)).strftime("%Y-%m-%d")
     emotestats = dbutils.sql_select(f"SELECT name, count FROM emote_tracker WHERE CONCAT(SUBSTRING(date, 7, 10), '-', SUBSTRING(date, 4, 2), '-', SUBSTRING(date, 1, 2)) >= '{date}'")
