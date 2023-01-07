@@ -66,11 +66,11 @@ class Bot(commands.Bot):
     @routines.routine(minutes=5)
     async def update_matches_loop(self):
         # Get summoner, ranked stats and match history
-        accounts = ["small champ pool", "Leminem"]
+        accounts = [utils.getNemesisAccountName()]
         for account in accounts:
-            summoner = watcher.summoner.by_name("kr", account)
-            ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
-            matches = utils.getMatchesOfToday("asia", summoner)
+            summoner = watcher.summoner.by_name("euw1", account)
+            ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
+            matches = utils.getMatchesOfToday("europe", summoner)
             lp = utils.getLP(ranked_stats)
             if matches:
                 dbutils.savematch(matches[0], lp, account)

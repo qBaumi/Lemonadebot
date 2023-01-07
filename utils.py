@@ -33,9 +33,9 @@ def getLP(ranked_stats):
 def update_matches():
     # Get summoner, ranked stats and match history
     account = getNemesisAccountName()
-    summoner = watcher.summoner.by_name("kr", account)
-    ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
-    matches = getMatchesOfToday("asia", summoner)
+    summoner = watcher.summoner.by_name("euw1", account)
+    ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
+    matches = getMatchesOfToday("europe", summoner)
     lp = getLP(ranked_stats)
     if matches:
         dbutils.savematch(matches[0], lp, account)
@@ -73,8 +73,8 @@ def getChannelSummoner(name):
         match_region = "europe"
         summonername = "I love Fullclear"
     else:
-        my_region = "kr"
-        match_region = "asia"
+        my_region = "euw1"
+        match_region = "europe"
         summonername = getNemesisAccountName()
     return my_region, match_region, summonername
 
