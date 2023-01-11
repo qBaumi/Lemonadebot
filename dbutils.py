@@ -50,8 +50,9 @@ def savematch(matchid, lp, account):
     date = utils.getDate()
     last_matchid, last_lp = \
         sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
-
-    if matchid != last_matchid:
+    if not lp:
+        sql_exec(f"INSERT INTO matches(date, matchid, lp, lpgain, account, timestamp) values('{date}', '{matchid}', 0, 0, '{account}', {datetime.now().timestamp()})")
+    elif matchid != last_matchid:
         sql_exec(
             f"INSERT INTO matches(date, matchid, lp, lpgain, account, timestamp) values('{date}', '{matchid}', {lp}, {lp - last_lp}, '{account}', {datetime.now().timestamp()})")
 
