@@ -159,5 +159,5 @@ def getTopRank(region, summonerName):
     playerlist = response["entries"]
     playerlist = sorted(playerlist, key=lambda d: d["leaguePoints"], reverse=True)
     for i, player in enumerate(playerlist):
-        if player["summonerName"] == "small champ pool":
+        if player["summonerName"] == getNemesisAccountName():
             return i+1
