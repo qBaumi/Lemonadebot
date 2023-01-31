@@ -48,8 +48,12 @@ def sql_select(sql):
 
 def savematch(matchid, lp, account):
     date = utils.getDate()
-    last_matchid, last_lp = \
-        sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
+
+    try:
+        last_matchid, last_lp = sql_select(f"SELECT matchid, lp FROM matches WHERE account = '{account}' ORDER BY timestamp DESC LIMIT 1")[0]
+    except:
+        last_matchid = 0
+        last_lp = lp
 
     if matchid != last_matchid:
         if not lp:
