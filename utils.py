@@ -118,7 +118,7 @@ def getWintradesOfToday(match_region, me, summonername):
 def isWhitelisted(ctx):
     with open("./json/whitelist.json", "r") as f:
         whitelist = json.load(f)
-
+    print(ctx.author.id)
     if int(ctx.author.id) in whitelist or ctx.author.name == "qBaumi":
         print("Whitelisted")
         return True
