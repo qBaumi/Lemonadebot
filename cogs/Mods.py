@@ -12,7 +12,7 @@ class Mods(commands.Cog):
     @commands.command()
     async def change_account(self, ctx: commands.Context, *, new_account_name):
         print(new_account_name)
-        if not ctx.author.is_mod and str(ctx.author.name) != "qbaumi2004" and not utils.isWhitelisted(ctx):
+        if not ctx.author.is_mod and str(ctx.author.name) != "qBaumi" and not utils.isWhitelisted(ctx):
             return
         with open("./json/account.json", "w") as f:
             json.dump({"name" : new_account_name}, f, indent=4)

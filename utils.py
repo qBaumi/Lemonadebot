@@ -119,7 +119,7 @@ def isWhitelisted(ctx):
     with open("./json/whitelist.json", "r") as f:
         whitelist = json.load(f)
 
-    if int(ctx.author.id) in whitelist or ctx.author.name == "qbaumi2004":
+    if int(ctx.author.id) in whitelist or ctx.author.name == "qBaumi":
         print("Whitelisted")
         return True
     print("Not Whitelisted")
