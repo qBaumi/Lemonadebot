@@ -14,7 +14,7 @@ class Mods(commands.Cog):
         print(new_account_name)
         print(ctx.author.id)
 
-        if not ctx.author.is_mod and str(ctx.author.name) != "qBaumi" and not utils.isWhitelisted(ctx):
+        if not ctx.author.is_mod and str(ctx.author.name).lower() != "qbaumi" and not utils.isWhitelisted(ctx):
             return
         with open("./json/account.json", "w") as f:
             json.dump({"name" : new_account_name}, f, indent=4)

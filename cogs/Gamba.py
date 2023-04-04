@@ -24,7 +24,7 @@ class Gamba(commands.Cog):
 
     @commands.command()
     async def whitelist(self, ctx: commands.Context, action: str = None, user: twitchio.User = None):
-        if not ctx.author.is_mod and ctx.author.name != "qbaumi2004":
+        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi":
             return
         # load whitelist
         with open("./json/whitelist.json", "r") as f:
