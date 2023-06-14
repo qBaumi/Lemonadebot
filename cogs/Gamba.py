@@ -2,7 +2,7 @@ import twitchio
 from twitchio.ext import commands
 
 import dbutils
-from config import cooldown, gamba_token
+from config import cooldown, gamba_token, token
 import utils, json
 
 
@@ -37,7 +37,7 @@ class Gamba(commands.Cog):
             user = await ctx.channel.user()
             if self.current_prediction is None:
                 print("START GAMBA")
-                self.current_prediction = await user.create_prediction(gamba_token, "WIN OR LOSE", "win", "lose", 120)
+                self.current_prediction = await user.create_prediction(token, "WIN OR LOSE", "win", "lose", 120)
             else:
                 await ctx.send("There is already a predction going on")
         elif action == "end" and outcome == "win" or action == "end" and outcome == "lose":
