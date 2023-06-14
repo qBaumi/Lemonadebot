@@ -171,4 +171,8 @@ async def useTextCommand(command, message):
 
 
 def getWhitelist():
-    return dbutils.sql_select("SELECT * FROM whitelist")
+    whitelist = []
+    tuplelist = dbutils.sql_select("SELECT * FROM whitelist")
+    for item in tuplelist:
+        whitelist.append(item[0])
+    return whitelist
