@@ -61,7 +61,7 @@ class Bot(commands.Bot):
     @commands.command()
     async def help(self, ctx: commands.Context):
         await ctx.send(
-            f'@{ctx.author.name} https://lemonadebot.pages.dev (doesnt work currently)')
+            f'@{ctx.author.name} https://lemonadebot.pages.dev')
 
     @routines.routine(minutes=5)
     async def update_matches_loop(self):
