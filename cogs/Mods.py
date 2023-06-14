@@ -47,7 +47,15 @@ class Mods(commands.Cog):
             return
         print(f"command: {command}")
         print(f"response: {response}")
-
+        textcommands = utils.getTextCommands()
+        textcommands[command] = response
+    @commands.command()
+    async def removecommand(self, ctx: commands.Context, command: str):
+        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi":
+            return
+        print(f"command: {command}")
+        textcommands = utils.getTextCommands()
+        textcommands.remove(command)
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command()
