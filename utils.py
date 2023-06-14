@@ -161,7 +161,7 @@ async def useTextCommand(command, message):
     for textcommand in textcommands.keys():
         if command.lower().startswith(textcommand.lower()) or command.lower() == textcommand.lower():
             command = textcommand
-            await message.channel.send(str(textcommands[command]).replace("@", message.author.mention))
+            await message.channel.send(str(textcommands[command]).replace("@user", message.author.mention))
 
 
 def getWhitelist():
