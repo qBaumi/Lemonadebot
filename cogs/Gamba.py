@@ -27,6 +27,7 @@ class Gamba(commands.Cog):
     @commands.command()
     async def gamba(self, ctx: commands.Context, action: str = "", outcome: str = ""):
         action = action.lower()
+        outcome = outcome.lower()
         if not utils.isWhitelisted(ctx):
             return
         if action == "":
@@ -39,6 +40,8 @@ class Gamba(commands.Cog):
                 print("START GAMBA")
                 self.current_prediction = await user.create_prediction(gamba_token, "WIN OR LOSE", "win", "lose", 120)
                 print(self.current_prediction.prediction_id)
+                print(self.current_prediction.outcomes)
+                print(self.current_prediction)
             else:
                 await ctx.send("There is already a prediction going on")
         elif action == "end" and outcome == "win" or action == "end" and outcome == "lose":
