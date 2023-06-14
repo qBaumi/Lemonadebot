@@ -26,6 +26,7 @@ class Gamba(commands.Cog):
 
     @commands.command()
     async def gamba(self, ctx: commands.Context, action: str = "", outcome: str = ""):
+        action = action.lower()
         if not utils.isWhitelisted(ctx):
             return
         if action == "":
@@ -35,6 +36,7 @@ class Gamba(commands.Cog):
             # start gamba
             user = await ctx.channel.user()
             if self.current_prediction is None:
+                print("START GAMBA")
                 self.current_prediction = user.create_prediction(gamba_token, "WIN OR LOSE", "win", "lose", 120)
             else:
                 await ctx.send("There is already a predction going on")
