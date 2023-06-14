@@ -70,8 +70,13 @@ class Mods(commands.Cog):
 
         if not utils.isWhitelisted(ctx):
             return
+        with open("./json/accounts.json", "r") as f:
+            data = json.load(f)
+
+        data["currentAccount"] = new_account_name
+
         with open("./json/accounts.json", "w") as f:
-            json.dump({"currentAccount": new_account_name}, f, indent=4)
+            json.dump(data, f, indent=4)
         await ctx.send(f"{ctx.author.mention} successfully changed Account to {new_account_name}")
 
 def prepare(bot: commands.Bot):
