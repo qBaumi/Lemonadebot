@@ -114,12 +114,8 @@ def getWintradesOfToday(match_region, me, summonername):
 
 def isWhitelisted(ctx):
     whitelist = getWhitelist()
-    print(whitelist)
-    print(ctx.author.id)
-    if int(ctx.author.id) in whitelist or ctx.author.name.lower() == "qbaumi":
-        #print("Whitelisted")
+    if int(ctx.author.id) in whitelist or ctx.author.name.lower() == "qbaumi" or ctx.author.is_mod:
         return True
-    #print("Not Whitelisted")
     return False
 
 

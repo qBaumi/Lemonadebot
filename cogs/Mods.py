@@ -17,9 +17,7 @@ class Mods(commands.Cog):
             return
         whitelist = utils.getWhitelist()
         if action == "" or action is None:
-            # send whitelist
-            print(whitelist)
-            print(type(whitelist))
+
             users = await self.bot.fetch_users(ids=whitelist)
             s = f"whitelist: "
             for user in users:
@@ -49,7 +47,7 @@ class Mods(commands.Cog):
         print(new_account_name)
         print(ctx.author.id)
 
-        if not ctx.author.is_mod and str(ctx.author.name).lower() != "qbaumi" and not utils.isWhitelisted(ctx):
+        if not utils.isWhitelisted(ctx):
             return
         with open("./json/accounts.json", "w") as f:
             json.dump({"currentAccount": new_account_name}, f, indent=4)
