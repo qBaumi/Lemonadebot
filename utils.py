@@ -29,16 +29,21 @@ def getLP(ranked_stats):
             return ranked_stats[i]['leaguePoints']
         i = i + 1
 
+def getAccounts():
+    with open("./json/accounts.json", "r") as f:
+        data = json.load(f)
+    return data["accounts"]
 
 def update_matches():
     # Get summoner, ranked stats and match history
-    account = getNemesisAccountName()
-    summoner = watcher.summoner.by_name("euw1", account)
-    ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
-    matches = getMatchesOfToday("europe", summoner)
-    lp = getLP(ranked_stats)
-    if matches:
-        dbutils.savematch(matches[0], lp, account)
+    accounts = getAccounts()
+    for account in accounts:
+        summoner = watcher.summoner.by_name("euw1", account)
+        ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
+        matches = getMatchesOfToday("europe", summoner)
+        lp = getLP(ranked_stats)
+        if matches:
+            dbutils.savematch(matches[0], lp, account)
 
 
 def getGameType(match):
@@ -64,25 +69,17 @@ def getChannelSummoner(name):
         my_region = "euw1"
         match_region = "europe"
         summonername = "Deceiv3dDeceiv3r"
-    elif name == "thedisconnect":
-        my_region = "euw1"
-        match_region = "europe"
-        summonername = "TheDisconnect"
-    elif name == "rango235":
-        my_region = "euw1"
-        match_region = "europe"
-        summonername = "I love Fullclear"
     else:
         my_region = "euw1"
         match_region = "europe"
-        summonername = getNemesisAccountName()
+        summonername = getCurrentAccountName()
     return my_region, match_region, summonername
 
 
-def getNemesisAccountName():
-    with open("./json/account.json", "r") as f:
+def getCurrentAccountName():
+    with open("./json/accounts.json", "r") as f:
         data = json.load(f)
-    return data["name"]
+    return data["currentAccount"]
 
 
 def getDate():
@@ -116,13 +113,13 @@ def getWintradesOfToday(match_region, me, summonername):
     return failed_wintrade, succesfull_wintrade
 
 def isWhitelisted(ctx):
-    with open("./json/whitelist.json", "r") as f:
-        whitelist = json.load(f)
+    whitelist = getWhitelist()
+    print(whitelist)
     print(ctx.author.id)
     if int(ctx.author.id) in whitelist or ctx.author.name.lower() == "qbaumi":
-        print("Whitelisted")
+        #print("Whitelisted")
         return True
-    print("Not Whitelisted")
+    #print("Not Whitelisted")
     return False
 
 
@@ -159,5 +156,19 @@ def getTopRank(region, summonerName):
     playerlist = response["entries"]
     playerlist = sorted(playerlist, key=lambda d: d["leaguePoints"], reverse=True)
     for i, player in enumerate(playerlist):
-        if player["summonerName"] == getNemesisAccountName():
+        if player["summonerName"] == summonerName:
             return i+1
+
+async def useTextCommand(command, message):
+    print(command)
+    textcommands = {"inem": "No.", "language": "Only english Habibi", "hug": "@ dankHug", "dankHug": "@ dankHug",
+                    "nemeHug": "@ dankHug", "playlist":"Song Request Playlist: https://spoti.fi/3VYpBKa"
+        , "HmmSwing": "HmmSwing ", "HmmPls": "HmmPls ", "vanish": "peepoHide", "futa": "@ Weirdge ✋"}
+    for textcommand in textcommands.keys():
+        if command.lower().startswith(textcommand.lower()) or command.lower() == textcommand.lower():
+            command = textcommand
+            await message.channel.send(str(textcommands[command]).replace("@", message.author.mention))
+
+
+def getWhitelist():
+    return dbutils.sql_select("SELECT * FROM whitelist")

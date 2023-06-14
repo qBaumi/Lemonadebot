@@ -9,40 +9,6 @@ class Other(commands.Cog):
         self.bot = bot
 
 
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def inem(self, ctx: commands.Context):
-        await ctx.send(f'No.')
-
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def language(self, ctx: commands.Context):
-        await ctx.send(f'Only english Habibi')
-
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command(aliases=["dankHug", "nemeHug"])
-    async def hug(self, ctx: commands.Context):
-        await ctx.send(f'@{ctx.author.name} dankHug')
-
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def HmmSwing(self, ctx: commands.Context):
-        await ctx.send(f'HmmSwing ')
-
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def HmmPls(self, ctx: commands.Context):
-        await ctx.send(f'HmmPls ')
-
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def vanish(self, ctx: commands.Context):
-        await ctx.send(f'peepoHide ')
-
-    @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
-    @commands.command()
-    async def futa(self, ctx: commands.Context):
-        await ctx.send(f'{ctx.author.mention} Weirdge ✋')
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command()

@@ -16,8 +16,8 @@ class Mods(commands.Cog):
 
         if not ctx.author.is_mod and str(ctx.author.name).lower() != "qbaumi" and not utils.isWhitelisted(ctx):
             return
-        with open("./json/account.json", "w") as f:
-            json.dump({"name" : new_account_name}, f, indent=4)
+        with open("./json/accounts.json", "w") as f:
+            json.dump({"currentAccount": new_account_name}, f, indent=4)
         await ctx.send(f"{ctx.author.mention} successfully changed Account to {new_account_name}")
 
 def prepare(bot: commands.Bot):

@@ -5,7 +5,7 @@ from riotwatcher import ApiError
 from twitchio.ext import commands
 
 import dbutils
-from config import cooldown
+from config import cooldown, channel_name
 import utils, json
 from twitchio.ext import routines
 from config import watcher
@@ -133,7 +133,7 @@ class League(commands.Cog):
                 out = f"@{ctx.author.name} Todays wins/losses {wins}/{losses}, winrate: {int((wins / (wins + losses)) * 100)}%"
 
             # Get LP Gain if channel is nemesis
-            if ctx.channel.name == "lol_nemesis" and not out.endswith(":/"):
+            if ctx.channel.name == channel_name and not out.endswith(":/"):
                 try:
                     print(current_lp)
                     startlp, lpgain = dbutils.getDailyLPGain(current_lp)
@@ -193,13 +193,12 @@ class League(commands.Cog):
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command()
     async def account(self, ctx: commands.Context):
-        acc = utils.getNemesisAccountName()
+        acc = utils.getCurrentAccountName()
         await ctx.send(f"{ctx.author.mention} {acc}")
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command(aliases=["wintrades"])
     async def wintrade(self, ctx: commands.Context):
-        print("wintrade")
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
         me = watcher.summoner.by_name(my_region, summonername)
         failed_wintrades, successfull_wintrades = utils.getWintradesOfToday(match_region, me, summonername)

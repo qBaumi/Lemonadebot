@@ -4,7 +4,7 @@ from twitchio.ext import commands, routines
 
 import dbutils
 import utils
-from config import token, lastfm_api_key, lastfm_api_secret, watcher, cooldown
+from config import token, lastfm_api_key, lastfm_api_secret, watcher, cooldown, channel_name
 
 
 class Bot(commands.Bot):
@@ -38,8 +38,8 @@ class Bot(commands.Bot):
             return
 
         if message.content.startswith("lem "):
-            # print(f"{message.author.name}: {message.content}")
             command = message.content.lower()[4:len(message.content)]
+            await utils.useTextCommand(command, message)
             try:
                 dbutils.addcommandtostats(message.author.id, message.author.name, command)
             except:
@@ -48,7 +48,8 @@ class Bot(commands.Bot):
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
 
-        if message.channel.name.lower() != "lol_nemesis":
+        # save emote stats
+        if message.channel.name.lower() != channel_name:
             return
         emotesinmessage = []
         for word in str(message.content).split():
@@ -60,19 +61,11 @@ class Bot(commands.Bot):
     @commands.command()
     async def help(self, ctx: commands.Context):
         await ctx.send(
-            f'@{ctx.author.name} https://lemonadebot.pages.dev')
+            f'@{ctx.author.name} https://lemonadebot.pages.dev (doesnt work currently)')
 
     @routines.routine(minutes=5)
     async def update_matches_loop(self):
-        # Get summoner, ranked stats and match history
-        accounts = [utils.getNemesisAccountName()]
-        for account in accounts:
-            summoner = watcher.summoner.by_name("euw1", account)
-            ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
-            matches = utils.getMatchesOfToday("europe", summoner)
-            lp = utils.getLP(ranked_stats)
-            if matches:
-                dbutils.savematch(matches[0], lp, account)
+        utils.update_matches()
 
     @routines.routine(minutes=15)
     async def update_emotes_loop(self):

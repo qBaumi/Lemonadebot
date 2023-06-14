@@ -153,7 +153,7 @@ cython_debug/
 
 
 config.py
-eventsubnew.py
+eventsub.py
 json/token.json
 ./json/matches.json
 ./json/token.json
