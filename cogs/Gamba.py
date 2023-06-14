@@ -38,6 +38,7 @@ class Gamba(commands.Cog):
             if self.current_prediction is None:
                 print("START GAMBA")
                 self.current_prediction = await user.create_prediction(gamba_token, "WIN OR LOSE", "win", "lose", 120)
+                print(self.current_prediction.prediction_id)
             else:
                 await ctx.send("There is already a prediction going on")
         elif action == "end" and outcome == "win" or action == "end" and outcome == "lose":
