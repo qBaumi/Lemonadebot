@@ -52,3 +52,5 @@ def emotesweekly():
     response = flask.jsonify(emotestats)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+app.run(port=5695)
