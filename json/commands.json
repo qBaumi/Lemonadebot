@@ -13,5 +13,6 @@
         {"name": "Change_Account", "desc": "lem change_account <leaguename> - Only Mods and whitelisted people can use this command. Changes account for the bot to work, so it shows the correct rank. "},
         {"name": "Whitelist", "desc": "lem whitelist - Shows whitelisted players, lem whitelist add <username> - Adds user to the whitelist, lem whitelist remove <username> - Removes user from the whitelist"},
         {"name": "addcommand", "desc": "lem addcommand mycommand deez @user nuts - Only Mods and whitelisted people can use this command. Now you can use lem mycommand and the bot will respond with: deez @user nuts (@user will be replaced with the person that uses the command)"},
-        {"name": "removecommand", "desc": "lem removecommand mycommand - removes mycommand. Only Mods and whitelisted people can use this command. "}
+        {"name": "removecommand", "desc": "lem removecommand mycommand - removes mycommand. Only Mods and whitelisted people can use this command. "},
+        {"name": "gamba", "desc": "lem gamba start / lem gamba end win / lem gamba end lose - Starts Prediction / Ends Prediction. Only Mods and whitelisted people can use this command. "}
 ]
