@@ -49,6 +49,8 @@ class Mods(commands.Cog):
         print(f"response: {response}")
         textcommands = utils.getTextCommands()
         textcommands[command] = response
+        utils.saveTextCommands(textcommands)
+        await ctx.send(f"{ctx.author.mention} lem {command} was successfully added")
     @commands.command()
     async def removecommand(self, ctx: commands.Context, command: str):
         if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi":
@@ -56,6 +58,9 @@ class Mods(commands.Cog):
         print(f"command: {command}")
         textcommands = utils.getTextCommands()
         textcommands.remove(command)
+        utils.saveTextCommands(textcommands)
+        await ctx.send(f"{ctx.author.mention} lem {command} was successfully removed")
+
 
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command()
