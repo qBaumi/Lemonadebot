@@ -43,7 +43,7 @@ class Mods(commands.Cog):
 
     @commands.command()
     async def addcommand(self, ctx: commands.Context, command: str, *, response: str):
-        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi":
+        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi" and utils.isWhitelisted(ctx):
             return
         print(f"command: {command}")
         print(f"response: {response}")
@@ -53,7 +53,7 @@ class Mods(commands.Cog):
         await ctx.send(f"{ctx.author.mention} lem {command} was successfully added")
     @commands.command()
     async def removecommand(self, ctx: commands.Context, command: str):
-        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi":
+        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi" and utils.isWhitelisted(ctx):
             return
         print(f"command: {command}")
         textcommands = utils.getTextCommands()
