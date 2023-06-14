@@ -57,7 +57,7 @@ class Mods(commands.Cog):
             return
         print(f"command: {command}")
         textcommands = utils.getTextCommands()
-        textcommands.remove(command)
+        textcommands.pop(command)
         utils.saveTextCommands(textcommands)
         await ctx.send(f"{ctx.author.mention} lem {command} was successfully removed")
 
