@@ -157,9 +157,7 @@ def getTopRank(region, summonerName):
 
 async def useTextCommand(command, message):
     print(command)
-    textcommands = {"inem": "No.", "language": "Only english Habibi", "hug": "@ dankHug", "dankHug": "@ dankHug",
-                    "nemeHug": "@ dankHug", "playlist":"Song Request Playlist: https://spoti.fi/3VYpBKa"
-        , "HmmSwing": "HmmSwing ", "HmmPls": "HmmPls ", "vanish": "peepoHide", "futa": "@ Weirdge ✋"}
+    textcommands = getTextCommands()
     for textcommand in textcommands.keys():
         if command.lower().startswith(textcommand.lower()) or command.lower() == textcommand.lower():
             command = textcommand
@@ -172,3 +170,11 @@ def getWhitelist():
     for item in tuplelist:
         whitelist.append(item[0])
     return whitelist
+
+def getTextCommands():
+    with open("./json/textcommands.json", "r") as f:
+        data = json.load(f)
+    return data
+def saveTextCommands(textcommands):
+    with open("./json/textcommands.json", "w") as f:
+        json.dump(textcommands, f, indent=4)
