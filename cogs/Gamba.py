@@ -47,8 +47,21 @@ class Gamba(commands.Cog):
         elif action == "end" and outcome == "win" or action == "end" and outcome == "lose":
             # end gamba
             if self.current_prediction is not None:
+                """[<PredictionOutcome outcome_id=ec65046d-68d0-4a1a-b2ce-f175b2ad16d9 title=win channel_points=0 color=BLUE>, 
+                <PredictionOutcome outcome_id=c2f20e08-6ee0-4499-afc2-54c5e06ca76f title=lose channel_points=0 color=PINK>]
+                <Prediction user=<PartialUser id=86131599, name=lol_nemesis> prediction_id=9a29696f-20fe-4597-90de-9ad688bfefcb winning_outcome_id=None title=WIN OR LOSE>"""
                 user = await ctx.channel.user()
-                await user.end_prediction(gamba_token, self.current_prediction.prediction_id, "RESOLVED", outcome)
+                for item in self.current_prediction.outcomes:
+                    if item.title == "win":
+                        win_outcome_id = item.outcome_id
+                    else:
+                        lose_outcome_id = item.outcome_id
+                if outcome == "win":
+                    outcome_id = win_outcome_id
+                else:
+                    outcome_id = lose_outcome_id
+                print(f"outcome id = {outcome_id}")
+                await user.end_prediction(gamba_token, self.current_prediction.prediction_id, "RESOLVED", outcome_id)
                 self.current_prediction = None
             else:
                 await ctx.send("There is no prediction going on")
