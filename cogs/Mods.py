@@ -41,6 +41,14 @@ class Mods(commands.Cog):
             await ctx.send(f"examples: 'whitelist'(sends all whitelisted users), 'whitelist add @user', 'whitelist removed @user'")
             return
 
+    @commands.command()
+    async def addcommand(self, ctx: commands.Context, command: str, *, response: str):
+        if not ctx.author.is_mod and ctx.author.name.lower() != "qbaumi":
+            return
+        print(f"command: {command}")
+        print(f"response: {response}")
+
+
     @commands.cooldown(rate=1, per=cooldown, bucket=commands.Bucket.user)
     @commands.command()
     async def change_account(self, ctx: commands.Context, *, new_account_name):
