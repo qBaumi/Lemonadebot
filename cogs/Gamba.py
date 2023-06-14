@@ -44,7 +44,7 @@ class Gamba(commands.Cog):
             # end gamba
             if self.current_prediction is not None:
                 user = await ctx.channel.user()
-                await user.end_prediction(gamba_token, self.current_prediction.prediction_id, "HmmSwing ", outcome)
+                await user.end_prediction(gamba_token, self.current_prediction.prediction_id, "RESOLVED", outcome)
                 self.current_prediction = None
             else:
                 await ctx.send("There is no prediction going on")
