@@ -53,4 +53,5 @@ def emotesweekly():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-app.run(port=5695)
+if __name__ == '__main__':
+    app.run(port=5695)
