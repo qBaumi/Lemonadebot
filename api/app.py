@@ -2,7 +2,7 @@ import datetime
 import json
 
 import flask
-from flask import Flask
+from flask import Flask, request
 import sys
 from flask_cors import CORS
 
@@ -53,5 +53,18 @@ def emotesweekly():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
+@app.route('/saveZeit', methods=['POST'])
+def saveZeit():
+    if request.method == 'POST':
+        data = request.get_json()  # Assuming the request body contains JSON data
+        # Process the data as needed
+        print(data)
+        dbutils.sql_exec(f"INSERT INTO stoppuhr(timestamp, millilseconds) VALUES ({data['zeit']}, '{data['timestamp']}')")
+        return 'Data received successfully'
+    else:
+        return 'Invalid request method'
+
+
 if __name__ == '__main__':
-    app.run(port=5695)
+    app.run(port=5695, host="0.0.0.0")
