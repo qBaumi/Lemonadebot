@@ -60,7 +60,7 @@ def saveZeit():
         data = request.get_json()  # Assuming the request body contains JSON data
         # Process the data as needed
         print(data)
-        dbutils.sql_exec(f"INSERT INTO stoppuhr(timestamp, millilseconds) VALUES ({data['zeit']}, '{data['timestamp']}')")
+        dbutils.sql_exec(f"INSERT INTO stoppuhr(timestamp, milliseconds) VALUES ({data['zeit']}, '{data['timestamp']}')")
         return 'Data received successfully'
     else:
         return 'Invalid request method'
