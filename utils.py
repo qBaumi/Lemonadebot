@@ -38,9 +38,9 @@ def update_matches():
     # Get summoner, ranked stats and match history
     accounts = getAccounts()
     for account in accounts:
-        summoner = watcher.summoner.by_name("euw1", account)
-        ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
-        matches = getMatchesOfToday("europe", summoner)
+        summoner = watcher.summoner.by_name("kr", account)
+        ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
+        matches = getMatchesOfToday("asia", summoner)
         lp = getLP(ranked_stats)
         if matches:
             dbutils.savematch(matches[0], lp, account)
