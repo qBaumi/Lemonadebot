@@ -92,7 +92,7 @@ class League(commands.Cog):
             my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
 
             i = 0
-
+            print(my_ranked_stats)
             for queuetype in my_ranked_stats:
 
                 if my_ranked_stats[i]['queueType'] == 'RANKED_SOLO_5x5':
