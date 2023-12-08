@@ -70,8 +70,8 @@ def getChannelSummoner(name):
         match_region = "europe"
         summonername = "Deceiv3dDeceiv3r"
     else:
-        my_region = "kr"
-        match_region = "asia"
+        my_region = "euw1"
+        match_region = "europe"
         summonername = getCurrentAccountName()
     return my_region, match_region, summonername
 
