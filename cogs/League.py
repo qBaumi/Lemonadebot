@@ -89,6 +89,7 @@ class League(commands.Cog):
 
         try:
             me = watcher.summoner.by_name(my_region, summonername)
+            print(f"me: {me}")
             my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
 
             i = 0
