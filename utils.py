@@ -131,8 +131,11 @@ def getAllEmotes():
     bttv = requests.get("https://api.betterttv.net/3/cached/users/twitch/86131599")
     bttvglobal = requests.get("https://api.betterttv.net/3/cached/emotes/global")
     ffz = requests.get("https://api.frankerfacez.com/v1/room/lol_nemesis")
-    seventv = requests.get("https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes")
-    seventvglobal = requests.get("https://api.7tv.app/v2/emotes/global")
+    try:
+        seventv = requests.get("https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes")
+        seventvglobal = requests.get("https://api.7tv.app/v2/emotes/global")
+    except:
+        pass
     for emote in bttv.json()["channelEmotes"]:
         emotes.append(emote["code"])
     for emote in bttvglobal.json():
@@ -141,10 +144,13 @@ def getAllEmotes():
         emotes.append(emote["code"])
     for emote in ffz.json()["sets"]["575523"]["emoticons"]:
         emotes.append(emote["name"])
-    for emote in seventv.json():
-        emotes.append(emote["name"])
-    for emote in seventvglobal.json():
-        emotes.append(emote["name"])
+    try:
+        for emote in seventv.json():
+            emotes.append(emote["name"])
+        for emote in seventvglobal.json():
+            emotes.append(emote["name"])
+    except:
+        pass
     return emotes
 
 def getTopRank(region, summonerName):
