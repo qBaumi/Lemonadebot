@@ -88,7 +88,7 @@ class League(commands.Cog):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
         try:
-            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1]).puuid
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
             print(puuid)
             me = watcher.summoner.by_puuid(my_region, puuid)
             print(f"me: {me}")
