@@ -5,7 +5,7 @@ import time
 import requests
 
 import dbutils
-from config import watcher
+from config import watcher, riotwatcher
 
 
 async def err_msg(err, ctx):
@@ -38,9 +38,10 @@ def update_matches():
     # Get summoner, ranked stats and match history
     accounts = getAccounts()
     for account in accounts:
-        summoner = watcher.summoner.by_name("kr", account)
-        ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
-        matches = getMatchesOfToday("asia", summoner)
+        puuid = riotwatcher.account.by_riot_id("europe", account.split("#")[0], account.split("#")[1])["puuid"]
+        summoner = watcher.summoner.by_puuid("europe", puuid)
+        ranked_stats = watcher.league.by_summoner("europe", summoner['id'])
+        matches = getMatchesOfToday("europe", summoner)
         lp = getLP(ranked_stats)
         if matches:
             dbutils.savematch(matches[0], lp, account)
