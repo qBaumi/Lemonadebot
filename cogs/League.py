@@ -164,7 +164,7 @@ class League(commands.Cog):
 
         try:
             puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
-            me = watcher.summoner.by_puuid(my_region, puuid)
+            summoner = watcher.summoner.by_puuid(my_region, puuid)
             current_timestamp = datetime.datetime.now().timestamp() * 1000
             matches = watcher.match.matchlist_by_puuid(match_region, summoner['puuid'])
             lastgame = watcher.match.by_id(match_region, matches[0])
