@@ -8,7 +8,7 @@ import dbutils
 from config import cooldown, channel_name
 import utils, json
 from twitchio.ext import routines
-from config import watcher
+from config import watcher, riotwatcher
 
 class League(commands.Cog):
 
@@ -88,7 +88,9 @@ class League(commands.Cog):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
         try:
-            me = watcher.summoner.by_name(my_region, summonername)
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])
+            print(puuid)
+            me = watcher.summoner.by_puuid(my_region, puuid)
             print(f"me: {me}")
             my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
 
