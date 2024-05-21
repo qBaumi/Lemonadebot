@@ -39,7 +39,7 @@ def update_matches():
     accounts = getAccounts()
     for account in accounts:
         puuid = riotwatcher.account.by_riot_id("europe", account.split("#")[0], account.split("#")[1])["puuid"]
-        summoner = watcher.summoner.by_puuid("europe", puuid)
+        summoner = watcher.summoner.by_puuid("euw1", puuid)
         ranked_stats = watcher.league.by_summoner("europe", summoner['id'])
         matches = getMatchesOfToday("europe", summoner)
         lp = getLP(ranked_stats)
