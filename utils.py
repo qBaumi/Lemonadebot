@@ -5,7 +5,7 @@ import time
 import requests
 
 import dbutils
-from config import watcher
+from config import watcher, riotwatcher
 
 
 async def err_msg(err, ctx):
@@ -38,9 +38,10 @@ def update_matches():
     # Get summoner, ranked stats and match history
     accounts = getAccounts()
     for account in accounts:
-        summoner = watcher.summoner.by_name("kr", account)
-        ranked_stats = watcher.league.by_summoner("kr", summoner['id'])
-        matches = getMatchesOfToday("asia", summoner)
+        puuid = riotwatcher.account.by_riot_id("europe", account.split("#")[0], account.split("#")[1])["puuid"]
+        summoner = watcher.summoner.by_puuid("euw1", puuid)
+        ranked_stats = watcher.league.by_summoner("euw1", summoner['id'])
+        matches = getMatchesOfToday("europe", summoner)
         lp = getLP(ranked_stats)
         if matches:
             dbutils.savematch(matches[0], lp, account)
@@ -131,8 +132,11 @@ def getAllEmotes():
     bttv = requests.get("https://api.betterttv.net/3/cached/users/twitch/86131599")
     bttvglobal = requests.get("https://api.betterttv.net/3/cached/emotes/global")
     ffz = requests.get("https://api.frankerfacez.com/v1/room/lol_nemesis")
-    seventv = requests.get("https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes")
-    seventvglobal = requests.get("https://api.7tv.app/v2/emotes/global")
+    try:
+        seventv = requests.get("https://7tv.io/v2/users/612b5f7cfef79a90b279bda7/emotes")
+        seventvglobal = requests.get("https://api.7tv.app/v2/emotes/global")
+    except:
+        pass
     for emote in bttv.json()["channelEmotes"]:
         emotes.append(emote["code"])
     for emote in bttvglobal.json():
@@ -141,10 +145,13 @@ def getAllEmotes():
         emotes.append(emote["code"])
     for emote in ffz.json()["sets"]["575523"]["emoticons"]:
         emotes.append(emote["name"])
-    for emote in seventv.json():
-        emotes.append(emote["name"])
-    for emote in seventvglobal.json():
-        emotes.append(emote["name"])
+    try:
+        for emote in seventv.json():
+            emotes.append(emote["name"])
+        for emote in seventvglobal.json():
+            emotes.append(emote["name"])
+    except:
+        pass
     return emotes
 
 def getTopRank(region, summonerName):

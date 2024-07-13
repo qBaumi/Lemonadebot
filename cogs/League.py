@@ -8,7 +8,7 @@ import dbutils
 from config import cooldown, channel_name
 import utils, json
 from twitchio.ext import routines
-from config import watcher
+from config import watcher, riotwatcher
 
 class League(commands.Cog):
 
@@ -27,7 +27,8 @@ class League(commands.Cog):
                     return self.bot.champions[champ]["id"]
 
         try:
-            me = watcher.summoner.by_name(region, summonername)
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
+            me = watcher.summoner.by_puuid(region, puuid)
             game = watcher.spectator.by_summoner(region, me["id"])
             out = f""
             for participant in game["participants"]:
@@ -69,7 +70,8 @@ class League(commands.Cog):
                 return "HP"
 
         try:
-            me = watcher.summoner.by_name(region, summonername)
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
+            me = watcher.summoner.by_puuid(region, puuid)
             game = watcher.spectator.by_summoner(region, me["id"])
             out = f""
             for participant in game["participants"]:
@@ -88,7 +90,9 @@ class League(commands.Cog):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
         try:
-            me = watcher.summoner.by_name(my_region, summonername)
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
+            me = watcher.summoner.by_puuid(my_region, puuid)
+            print(puuid)
             print(f"me: {me}")
             my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
 
@@ -121,7 +125,8 @@ class League(commands.Cog):
         utils.update_matches()
         try:
 
-            me = watcher.summoner.by_name(my_region, summonername)
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
+            me = watcher.summoner.by_puuid(my_region, puuid)
             ranked_stats = watcher.league.by_summoner(my_region, me['id'])
             current_lp = utils.getLP(ranked_stats)
             wins, losses = dbutils.getwinslosses()
@@ -158,7 +163,8 @@ class League(commands.Cog):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
 
         try:
-            summoner = watcher.summoner.by_name(my_region, summonername)
+            puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])["puuid"]
+            summoner = watcher.summoner.by_puuid(my_region, puuid)
             current_timestamp = datetime.datetime.now().timestamp() * 1000
             matches = watcher.match.matchlist_by_puuid(match_region, summoner['puuid'])
             lastgame = watcher.match.by_id(match_region, matches[0])
@@ -201,7 +207,9 @@ class League(commands.Cog):
     @commands.command(aliases=["wintrades"])
     async def wintrade(self, ctx: commands.Context):
         my_region, match_region, summonername = utils.getChannelSummoner(ctx.channel.name)
-        me = watcher.summoner.by_name(my_region, summonername)
+        puuid = riotwatcher.account.by_riot_id(match_region, summonername.split("#")[0], summonername.split("#")[1])[
+            "puuid"]
+        me = watcher.summoner.by_puuid(my_region, puuid)
         failed_wintrades, successfull_wintrades = utils.getWintradesOfToday(match_region, me, summonername)
         if failed_wintrades == 0 and successfull_wintrades == 0:
             await ctx.send("No wintrades happened today yet")
