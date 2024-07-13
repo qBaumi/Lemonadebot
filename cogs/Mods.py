@@ -70,6 +70,9 @@ class Mods(commands.Cog):
 
         if not utils.isWhitelisted(ctx):
             return
+        if "#" not in new_account_name:
+            await ctx.send(f"{ctx.author.mention} you need to include a #tag in the account name!!!")
+            return
         with open("./json/accounts.json", "r") as f:
             data = json.load(f)
 
