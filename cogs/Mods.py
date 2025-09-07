@@ -82,5 +82,40 @@ class Mods(commands.Cog):
             json.dump(data, f, indent=4)
         await ctx.send(f"{ctx.author.mention} successfully changed Account to {new_account_name}")
 
+
+    @commands.cooldown(rate=1, per=5, bucket=commands.Bucket.user)
+    @commands.command()
+    async def change_playlist(self, ctx: commands.Context, *, playlist_name: str):
+        """Change the current playlist"""
+        # Whitelist check (if you want it)
+        if not utils.isWhitelisted(ctx):
+            return
+
+        with open("./json/playlist.json", "r") as f:
+            data = json.load(f)
+        originala = playlist_name
+        data["currentPlaylist"] = playlist_name.strip().split("/")[-1].split("?")[0]
+
+
+        with open("./json/playlist.json", "w") as f:
+            json.dump(data, f, indent=4)
+
+        await ctx.send(f"{ctx.author.mention} successfully changed Playlist to {originala}")
+
+    @commands.command()
+    async def playlist(self, ctx: commands.Context):
+        """Show the current playlist"""
+        try:
+            with open("./json/playlist.json", "r") as f:
+                data = json.load(f)
+            current_playlist = data.get("currentPlaylist", None)
+        except (FileNotFoundError, json.JSONDecodeError):
+            current_playlist = None
+
+        if current_playlist:
+            await ctx.send(f"Current Song Request Playlist: https://open.spotify.com/playlist/{current_playlist}")
+        else:
+            await ctx.send("No playlist set yet! Use `!change_playlist <name>` to set one.")
+
 def prepare(bot: commands.Bot):
     bot.add_cog(Mods(bot))

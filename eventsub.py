@@ -1,3 +1,5 @@
+import json
+
 import spotipy
 from spotipy import SpotifyOAuth
 import asyncio
@@ -56,7 +58,13 @@ async def on_redemption(data: ChannelPointsCustomRewardRedemptionAddEvent):
         return
 
     scope = ["playlist-modify-private", "playlist-modify-public"]
-    playlist_id = "2FfICVgwwXBuqbsKaoFbK5"
+    try:
+        with open("./json/playlist.json", "r") as f:
+            data = json.load(f)
+        playlist_id = data.get("currentPlaylist", None)
+    except (FileNotFoundError, json.JSONDecodeError):
+        playlist_id = "6UClbS0WNTHMxK2ozadGIw"
+
 
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(cache_handler=CustomCacheHandler(), scope=scope, client_id=client_id,
                                                    client_secret=client_secret,
